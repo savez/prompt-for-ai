@@ -3,66 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guida Completa LLM - Aprile 2026 (Rivista v2)</title>
+<title>Guida Completa LLM - Aprile 2026</title>
 <style>
+:root{--bg:#0f0f14;--bg2:#1a1a24;--bg3:#22222e;--border:#2a2a3a;--text:#e0e0e8;--text2:#9999aa;--text3:#666678}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,-apple-system,sans-serif;max-width:920px;margin:0 auto;padding:12px;color:#1a1a1a;background:#fff}
-h2{text-align:center;font-size:19px;margin-bottom:2px}
-.sub{text-align:center;opacity:.45;font-size:11px;margin-bottom:14px}
-.tabs{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
-.tab{padding:6px 14px;border-radius:18px;border:none;cursor:pointer;font-size:12px;background:#f0f0f0;color:#555;font-weight:400;transition:all .15s}
-.tab.active{background:#7C3AED;color:#fff;font-weight:700}
-.filters{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
-.fbtn{padding:3px 10px;border-radius:10px;font-size:11px;cursor:pointer;border:1px solid #ccc;background:transparent;color:#888;font-weight:400}
+body{font-family:system-ui,-apple-system,sans-serif;max-width:920px;margin:0 auto;padding:16px;color:var(--text);background:var(--bg)}
+a{color:#818cf8}
+h2{text-align:center;font-size:20px;margin-bottom:2px;color:#fff}
+.sub{text-align:center;color:var(--text3);font-size:11px;margin-bottom:16px}
+.tabs{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.tab{padding:7px 16px;border-radius:20px;border:1px solid var(--border);cursor:pointer;font-size:12px;background:var(--bg2);color:var(--text2);font-weight:400;transition:all .2s}
+.tab:hover{border-color:#555}
+.tab.active{background:#7C3AED;color:#fff;font-weight:700;border-color:#7C3AED}
+.filters{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.fbtn{padding:4px 12px;border-radius:12px;font-size:11px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);font-weight:400;transition:all .15s}
+.fbtn:hover{border-color:#555}
 .fbtn.active{font-weight:700}
 .panel{display:none}.panel.active{display:block}
-.card{border-left:4px solid #ccc;border:1px solid #eee;border-radius:8px;padding:9px 12px;cursor:pointer;margin-bottom:6px;transition:background .15s}
-.card:hover{background:#fafafa}
+.card{border-left:4px solid #444;border:1px solid var(--border);border-radius:10px;padding:11px 14px;cursor:pointer;margin-bottom:7px;transition:all .15s;background:var(--bg2)}
+.card:hover{background:var(--bg3)}
 .card-head{display:flex;justify-content:space-between;align-items:center}
-.card-tags{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.card-model{font-weight:700;font-size:13px}
-.card-provider{opacity:.35;font-size:10px}
-.card-type{font-size:9px;padding:1px 6px;border-radius:6px;font-weight:600}
-.card-meta{font-size:10px;opacity:.45;margin-top:1px}
-.card-details{margin-top:8px;font-size:11px;line-height:1.5;display:none}
+.card-tags{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.card-model{font-weight:700;font-size:14px}
+.card-provider{color:var(--text3);font-size:10px}
+.card-type{font-size:9px;padding:2px 7px;border-radius:6px;font-weight:600}
+.card-meta{font-size:10px;color:var(--text3);margin-top:2px}
+.card-details{margin-top:10px;font-size:11px;line-height:1.55;display:none;color:var(--text2)}
 .card.open .card-details{display:block}
-.card-section-title{font-weight:700;font-size:10px;text-transform:uppercase;margin-bottom:2px}
-.card-limits{font-weight:600;font-size:10px;opacity:.5;text-transform:uppercase}
-.toggle{font-size:13px;opacity:.25}
-.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:5px;margin-bottom:16px}
-.sc-btn{padding:8px 6px;border-radius:9px;border:none;cursor:pointer;text-align:center;background:#f5f5f5;border-bottom:3px solid transparent}
-.sc-btn.active{border-bottom-color:currentColor}
-.sc-icon{font-size:20px}.sc-label{font-size:10px;margin-top:1px;line-height:1.2}
-.sc-context{background:#f8f8f8;border-radius:9px;padding:12px;margin-bottom:10px;font-size:12px}
-.sc-example{opacity:.5;margin-bottom:3px}
-.sc-top{border-width:2px;border-style:solid;border-radius:10px;padding:14px;margin-bottom:10px}
-.sc-badge{color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px;text-transform:uppercase}
-.sc-top-model{font-weight:700;font-size:15px}
-.sc-top-why{font-size:12px;line-height:1.55;margin:0 0 8px}
-.sc-tips-title{font-weight:700;margin-bottom:3px;opacity:.6;font-size:11px}
-.sc-tip{padding-left:10px;margin-bottom:2px;line-height:1.35;font-size:11px}
-.sc-alt{border:1px solid;border-left-width:4px;border-radius:9px;padding:12px;margin-bottom:10px}
-.sc-alt-label{font-size:9px;font-weight:600;opacity:.4;text-transform:uppercase}
-.sc-alt-model{font-weight:700;font-size:13px}
-.sc-alt-why{font-size:11px;line-height:1.45;margin:0 0 6px;opacity:.75}
-.sc-avoid{background:#EF444408;border:1px solid #EF444418;border-radius:9px;padding:10px;font-size:11px;line-height:1.4}
-.sc-avoid b{color:#EF4444}
-.note-box{background:#FEF3C7;border:1px solid #F59E0B30;border-radius:8px;padding:10px;margin-bottom:10px;font-size:11px;line-height:1.45}
-.note-box b{color:#92400E}
-.note-box.blue{background:#EFF6FF;border-color:#3B82F630}
-.note-box.blue b{color:#1E40AF}
+.card-section-title{font-weight:700;font-size:10px;text-transform:uppercase;margin-bottom:3px;letter-spacing:.3px}
+.card-limits{font-weight:600;font-size:10px;color:var(--text3);text-transform:uppercase}
+.toggle{font-size:14px;color:var(--text3)}
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:6px;margin-bottom:18px}
+.sc-btn{padding:10px 6px;border-radius:10px;border:1px solid var(--border);cursor:pointer;text-align:center;background:var(--bg2);border-bottom:3px solid transparent;transition:all .15s}
+.sc-btn:hover{background:var(--bg3)}
+.sc-icon{font-size:22px}.sc-label{font-size:10px;margin-top:2px;line-height:1.2;color:var(--text2)}
+.sc-context{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:13px;margin-bottom:12px;font-size:12px}
+.sc-example{color:var(--text3);margin-bottom:4px}
+.sc-top{border-width:2px;border-style:solid;border-radius:12px;padding:16px;margin-bottom:12px}
+.sc-badge{color:#fff;font-size:9px;font-weight:700;padding:3px 10px;border-radius:10px;text-transform:uppercase;letter-spacing:.3px}
+.sc-top-model{font-weight:700;font-size:16px}
+.sc-top-why{font-size:12px;line-height:1.6;color:var(--text2)}
+.sc-tips-title{font-weight:700;margin-bottom:4px;color:var(--text3);font-size:11px}
+.sc-tip{padding-left:12px;margin-bottom:3px;line-height:1.4;font-size:11px;color:var(--text2)}
+.sc-alt{border:1px solid;border-left-width:4px;border-radius:10px;padding:13px;margin-bottom:12px;background:var(--bg2)}
+.sc-alt-label{font-size:9px;font-weight:600;color:var(--text3);text-transform:uppercase}
+.sc-alt-model{font-weight:700;font-size:14px}
+.sc-alt-why{font-size:11px;line-height:1.5;margin:0 0 6px;color:var(--text2)}
+.sc-avoid{background:#2d1519;border:1px solid #5c2028;border-radius:10px;padding:11px;font-size:11px;line-height:1.45;color:#f0a0a0}
+.sc-avoid b{color:#f87171}
+.note-box{background:#1e1b2e;border:1px solid #3b3560;border-radius:10px;padding:11px;margin-bottom:12px;font-size:11px;line-height:1.5;color:#c4b5fd}
+.note-box b{color:#a78bfa}
+.note-box.blue{background:#131c2e;border-color:#1e3a5f;color:#93c5fd}
+.note-box.blue b{color:#60a5fa}
+.note-box.amber{background:#1f1a0e;border-color:#5c4a1e;color:#fcd34d}
+.note-box.amber b{color:#f59e0b}
 .matrix{width:100%;border-collapse:collapse;font-size:10px}
-.matrix th{padding:5px 6px;text-align:center;font-weight:700;background:#f5f5f5}
+.matrix th{padding:6px 7px;text-align:center;font-weight:700;background:var(--bg3);color:var(--text)}
 .matrix th:first-child{text-align:left}
-.matrix td{padding:5px 6px;text-align:center;border-top:1px solid #eee}
+.matrix td{padding:6px 7px;text-align:center;border-top:1px solid var(--border)}
 .matrix td:first-child{text-align:left;font-weight:600;white-space:nowrap;font-size:10px}
-.dot-full{font-weight:700}.dot-empty{opacity:.15;font-weight:700}
+.dot-full{font-weight:700}.dot-empty{opacity:.12;font-weight:700}
+.gen-wrap{border-radius:10px;overflow:hidden;border:1px solid var(--border)}
 .gen-table{width:100%;border-collapse:collapse;font-size:11px}
-.gen-table th{padding:7px 8px;text-align:left;font-weight:700;background:#f5f5f5}
-.gen-table td{padding:7px 8px;border-top:1px solid #eee}
-.gen-best{font-weight:700;padding:2px 7px;border-radius:8px;font-size:10px;white-space:nowrap}
-.footer{text-align:center;opacity:.3;font-size:9px;margin-top:12px}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.gen-table th{padding:8px 9px;text-align:left;font-weight:700;background:var(--bg3);color:var(--text)}
+.gen-table td{padding:8px 9px;border-top:1px solid var(--border)}
+.gen-best{font-weight:700;padding:3px 8px;border-radius:8px;font-size:10px;white-space:nowrap}
+.gen-alt{color:var(--text3);font-size:10px}
+.gen-why{color:var(--text3);font-size:10px}
+.footer{text-align:center;color:var(--text3);font-size:9px;margin-top:14px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .fade{animation:fadeIn .2s ease}
 @media(max-width:600px){.sc-grid{grid-template-columns:repeat(3,1fr)}}
 </style>
@@ -70,7 +79,7 @@ h2{text-align:center;font-size:19px;margin-bottom:2px}
 <body>
 
 <h2>Guida Completa alla Scelta del LLM</h2>
-<p class="sub">12 modelli · 7 scenari · 15 task · Aprile 2026 · <em>Rivista v2</em></p>
+<p class="sub">12 modelli · 7 scenari · 15 task · Aprile 2026 · <em>Rivista v3 — dark</em></p>
 
 <div class="tabs" id="mainTabs">
   <button class="tab active" data-tab="scenarios">🎯 I tuoi scenari</button>
@@ -87,149 +96,148 @@ h2{text-align:center;font-size:19px;margin-bottom:2px}
 <p class="footer">Fonti: benchmark ufficiali, Artificial Analysis, report tecnici · Aprile 2026</p>
 
 <script>
-const models = [
-  {model:"Gemini 3.1 Pro",provider:"Google",type:"Proprietario",tier:"frontier",color:"#4285F4",
+const models=[
+  {model:"Gemini 3.1 Pro",provider:"Google",type:"Proprietario",tier:"frontier",color:"#60a5fa",
     strengths:["#1 su ARC-AGI-2 (77.1%), GPQA Diamond (94.3%)","Contesto 1M token + output 65K","Multimodale nativo (testo, audio 8.4h, video 1h, PDF, codice)","Rendering SVG/3D nativo","3 livelli di thinking (Low/Medium/High)"],
     bestFor:"Analisi documenti lunghi, ricerca scientifica, multimodale, budget limitato",
     weaknesses:"Leggermente sotto Opus su SWE-Bench; meno forte in writing creativo",
     pricing:"$2 / $12",context:"1M / 65K",scores:{cod:4,rea:5,wri:4,age:4,mul:5,cos:5,opn:false}},
-  {model:"Claude Opus 4.6",provider:"Anthropic",type:"Proprietario",tier:"frontier",color:"#7C3AED",
+  {model:"Claude Opus 4.6",provider:"Anthropic",type:"Proprietario",tier:"frontier",color:"#a78bfa",
     strengths:["Top su SWE-Bench Verified (80.8%)","Ragionamento profondo, sfumato e accurato","Scrittura creativa e analisi di altissima qualità","Forte su task PhD-level e analisi etica"],
     bestFor:"Software engineering complesso, scrittura alta qualità, analisi strategiche",
     weaknesses:"Il più costoso e più lento; prezzo output da verificare su docs Anthropic",
     pricing:"$15 / output da verificare",context:"200K",scores:{cod:5,rea:5,wri:5,age:4,mul:3,cos:1,opn:false}},
-  {model:"GPT-5.4",provider:"OpenAI",type:"Proprietario",tier:"frontier",color:"#10A37F",
+  {model:"GPT-5.4",provider:"OpenAI",type:"Proprietario",tier:"frontier",color:"#34d399",
     strengths:["Computer use nativo (75% OSWorld > umani 72.4%)","Unifica coding + reasoning + agenti","Tool search per ecosistemi complessi","1M token di contesto","Varianti: Thinking, Pro, Mini, Nano"],
     bestFor:"Automazione agenti, computer use, Codex pipeline CI/CD, workflow professionali",
     weaknesses:"Sotto Opus su SWE-Bench Verified; ecosistema chiuso",
     pricing:"$2.50 / $15",context:"1M",scores:{cod:5,rea:5,wri:4,age:5,mul:4,cos:3,opn:false}},
-  {model:"Grok 4.1",provider:"xAI",type:"Proprietario",tier:"frontier",color:"#1DA1F2",
+  {model:"Grok 4.1",provider:"xAI",type:"Proprietario",tier:"frontier",color:"#38bdf8",
     strengths:["Accesso real-time a X/Twitter e web","Forte su finanza (93%) e coding (86%)","RAG integrato nell'API","Video generation con Grok Imagine"],
     bestFor:"Analisi real-time, social media, finanza, estrazione dati",
     weaknesses:"Benchmark generali sotto i top; contesto 131K; naming incerto (4.1 vs 4.20)",
     pricing:"$3 / $15",context:"131K",scores:{cod:4,rea:4,wri:3,age:4,mul:4,cos:3,opn:false}},
-  {model:"Claude Sonnet 4.6",provider:"Anthropic",type:"Proprietario",tier:"workhorse",color:"#D97706",
+  {model:"Claude Sonnet 4.6",provider:"Anthropic",type:"Proprietario",tier:"workhorse",color:"#fbbf24",
     strengths:["Equilibrio ottimale velocità/intelligenza","Coding solido e affidabile","Istruzioni complesse seguite con precisione","Buon rapporto costo/prestazioni"],
     bestFor:"Coding quotidiano, scrittura professionale, chatbot, alto volume",
     weaknesses:"Meno potente di Opus su task complessi; contesto più limitato vs Gemini",
     pricing:"Tier medio (verificare docs)",context:"200K",scores:{cod:4,rea:4,wri:4,age:3,mul:3,cos:4,opn:false}},
-  {model:"Mistral Medium 3",provider:"Mistral AI",type:"Proprietario",tier:"workhorse",color:"#FF7000",
+  {model:"Mistral Medium 3",provider:"Mistral AI",type:"Proprietario",tier:"workhorse",color:"#fb923c",
     strengths:["Frontier-class a costo ridotto","Multimodale (testo + immagini)","Tool use e structured output","Ottimo per lingue europee"],
     bestFor:"Alto volume a basso costo, assistenti EU-compliant, RAG",
     weaknesses:"Non al livello dei top su reasoning puro; meno community",
     pricing:"$0.40 / $2",context:"131K",scores:{cod:3,rea:3,wri:3,age:3,mul:3,cos:5,opn:false}},
-  {model:"DeepSeek V3.2",provider:"DeepSeek",type:"Open Source",tier:"open",color:"#0066FF",
+  {model:"DeepSeek V3.2",provider:"DeepSeek",type:"Open Source",tier:"open",color:"#38bdf8",
     strengths:["V3.2-Speciale supera GPT-5 su reasoning (solo variante high-compute)","671B MoE, 37B attivi","Open source + API $0.55/M","Sparse Attention contesti lunghi","Forte coding e matematica"],
     bestFor:"Self-hosting economico, coding, matematica, alternativa open",
     weaknesses:"V3.2 base non batte GPT-5 su tutto; HW per self-host; V4 atteso",
     pricing:"$0.55 / $2.19",context:"128K",scores:{cod:5,rea:5,wri:3,age:4,mul:2,cos:5,opn:true}},
-  {model:"Kimi K2.5",provider:"Moonshot AI",type:"Open Weight",tier:"open",color:"#8B5CF6",
+  {model:"Kimi K2.5",provider:"Moonshot AI",type:"Open Weight",tier:"open",color:"#c084fc",
     strengths:["#1 open-weight su Artificial Analysis","1T params, 32B attivi","Sub-agent autonomi paralleli","Vision + video + text","51% Humanity's Last Exam"],
     bestFor:"Workflow agentici, coding, ricerca autonoma, multi-agent",
     weaknesses:"HW pesante per self-host; licenza MIT modificata",
     pricing:"$0.60 / $3",context:"256K",scores:{cod:5,rea:5,wri:3,age:5,mul:4,cos:4,opn:true}},
-  {model:"Llama 4 Scout/Maverick",provider:"Meta",type:"Open Source",tier:"open",color:"#0668E1",
+  {model:"Llama 4 Scout/Maverick",provider:"Meta",type:"Open Source",tier:"open",color:"#60a5fa",
     strengths:["Scout: contesto record 10M token","Maverick: 400B params, 200 lingue","MoE — solo 17B attivi","Ecosistema community enorme"],
     bestFor:"Documenti lunghissimi, multilingue, fine-tuning, community",
     weaknesses:"Benchmark sotto frontier; Maverick richiede HW serio",
     pricing:"Gratuito + infra",context:"10M / 1M",scores:{cod:3,rea:3,wri:3,age:3,mul:4,cos:5,opn:true}},
-  {model:"Qwen 3.5",provider:"Alibaba",type:"Open Source",tier:"open",color:"#6366F1",
-    strengths:["397B params MoE efficiente","119+ lingue (confermato per Qwen 3, probabile ≥ per 3.5)","Gira su MacBook 64GB (122B variant)","Dual-mode: fast + thinking","Coder-Next rivaleggia Sonnet"],
+  {model:"Qwen 3.5",provider:"Alibaba",type:"Open Source",tier:"open",color:"#818cf8",
+    strengths:["397B params MoE efficiente","119+ lingue (confermato Qwen 3, probabile ≥ per 3.5)","Gira su MacBook 64GB (122B)","Dual-mode: fast + thinking","Coder-Next rivaleggia Sonnet"],
     bestFor:"Multilingue, coding locale, CJK, consumer HW, fine-tuning",
     weaknesses:"Tooling meno maturo in occidente; contesto più corto",
     pricing:"Gratuito + infra",context:"128K",scores:{cod:5,rea:4,wri:3,age:3,mul:3,cos:5,opn:true}},
-  {model:"Mistral Large 3",provider:"Mistral AI",type:"Open Weight",tier:"open",color:"#FF7000",
+  {model:"Mistral Large 3",provider:"Mistral AI",type:"Open Weight",tier:"open",color:"#fb923c",
     strengths:["675B params (41B attivi) Apache 2.0","Architettura DeepSeek V3 ottimizzata","Multimodale + 128K","80+ lingue, forte EU"],
     bestFor:"Enterprise EU self-hosted, RAG, GDPR compliance",
     weaknesses:"Richiede infra seria; benchmark sotto top proprietari",
     pricing:"Gratuito + infra",context:"128K",scores:{cod:4,rea:4,wri:3,age:4,mul:4,cos:5,opn:true}},
-  {model:"Nemotron 3 Super",provider:"NVIDIA",type:"Open Source",tier:"open",color:"#76B900",
+  {model:"Nemotron 3 Super",provider:"NVIDIA",type:"Open Source",tier:"open",color:"#a3e635",
     strengths:["120B, 12B attivi — ibrido Mamba-Transformer","1M contesto linear-time","Thinking budget configurabile","Ottimizzato TensorRT GPU NVIDIA"],
     bestFor:"On-premise GPU NVIDIA, multi-agent enterprise, edge, privacy",
     weaknesses:"Ultra non disponibile; richiede GPU NVIDIA",
     pricing:"Gratuito + infra",context:"1M",scores:{cod:4,rea:4,wri:3,age:5,mul:2,cos:5,opn:true}}
 ];
 
-const scenarios = [
+const scenarios=[
   {id:"research",icon:"🔬",title:"Ricerca tecnica",
     example:"Es: AWS e idempotenza, pattern architetturali, best practice cloud",
     needs:"Ragionamento profondo, collegare concetti, distinguere fatti da opinioni.",
-    top:{model:"Dipende dal tipo di ricerca",color:"#7C3AED",
-      why:`<b style="color:#7C3AED">Concetti consolidati</b> (pattern, architetture, trade-off noti) → <b>Claude Opus 4.6</b> — ragionamento tecnico insuperato. Scava nei casi limite, non resta in superficie.<br><br><b style="color:#4285F4">Tech recente o in evoluzione</b> (servizio AWS appena rilasciato, nuova API) → <b>Gemini 3.1 Pro</b> — Google Search nativo + 1M contesto per whitepaper. GPQA #1 (94.3%). Costa 7.5x meno di Opus.`,
-      tips:["Concetti consolidati → Opus: chiedi trade-off e casi limite espliciti","Tech recente → Gemini: lascia che il search faccia il lavoro","In entrambi: fornisci contesto sul tuo stack attuale","Prompt strutturato: \"Analizza X per performance, costi, complessità\""]},
-    alt:{model:"Complementari tra loro",color:"#4285F4",why:"Opus ragiona meglio, Gemini cerca meglio e costa meno. La scelta dipende da quanto l'informazione è recente."},
+    top:{model:"Dipende dal tipo di ricerca",color:"#a78bfa",
+      why:`<b style="color:#a78bfa">Concetti consolidati</b> (pattern, architetture, trade-off noti) → <b>Claude Opus 4.6</b> — ragionamento tecnico insuperato. Scava nei casi limite.<br><br><b style="color:#60a5fa">Tech recente o in evoluzione</b> (servizio AWS appena uscito, nuova API) → <b>Gemini 3.1 Pro</b> — Google Search nativo + 1M contesto. GPQA #1 (94.3%). Costa 7.5x meno.`,
+      tips:["Concetti consolidati → Opus: chiedi trade-off e casi limite","Tech recente → Gemini: lascia che il search lavori","In entrambi: fornisci contesto sul tuo stack","Prompt: \"Analizza X per performance, costi, complessità\""]},
+    alt:{model:"Complementari tra loro",color:"#60a5fa",why:"Opus ragiona meglio, Gemini cerca meglio e costa meno. Scegli in base a quanto l'info è recente."},
     avoid:"Grok 4.1 (poco rigoroso su dettagli profondi), modelli open piccoli (allucinazioni)."},
   {id:"specs",icon:"📋",title:"Specifiche funzion.",
     example:"Es: requirement funzionali, acceptance criteria, API contract, user story",
     needs:"Istruzioni strutturate, coerenza interna, identificare ambiguità, proporre edge case.",
-    top:{model:"Claude Sonnet 4.6",color:"#D97706",
-      why:"Per la maggior parte delle specifiche — user story, acceptance criteria, API contract — Sonnet è più che sufficiente ed è molto più pratico nel ciclo iterativo. Veloce, preciso, buon rapporto costo/qualità.",
-      tips:["Fornisci contesto progetto e target audience","Bozza struttura prima, poi sezione per sezione","Chiedi di evidenziare assunzioni e domande aperte","Specifica: \"scrivi per uno dev senior che non conosce il dominio\""]},
-    alt:{model:"Claude Opus 4.6",color:"#7C3AED",why:"Scala a Opus solo per specifiche architetturali critiche o documenti con molte sezioni interdipendenti. Opus pensa come un reviewer e trova edge case che Sonnet può mancare."},
+    top:{model:"Claude Sonnet 4.6",color:"#fbbf24",
+      why:"Per la maggior parte delle specifiche Sonnet è più che sufficiente e molto più pratico nel ciclo iterativo. Veloce, preciso, buon rapporto costo/qualità. Riserva Opus alle specifiche architetturali critiche.",
+      tips:["Fornisci contesto progetto e target audience","Bozza struttura prima, poi sezione per sezione","Chiedi di evidenziare assunzioni e domande aperte","\"Scrivi per un dev senior che non conosce il dominio\""]},
+    alt:{model:"Claude Opus 4.6",color:"#a78bfa",why:"Escalation per specifiche architetturali critiche o documenti con molte sezioni interdipendenti. Pensa come un reviewer e trova edge case che Sonnet può mancare."},
     avoid:"DeepSeek, Kimi — forti su coding ma writing strutturato per specifiche inferiore."},
   {id:"debug",icon:"🐛",title:"Debug codice",
     example:"Es: trovare bug, stack trace, fix errori runtime, refactoring",
     needs:"Ciclo rapido errore→ipotesi→fix, comprensione contesto, no shotgun debugging.",
-    top:{model:"Claude Sonnet 4.6",color:"#D97706",
+    top:{model:"Claude Sonnet 4.6",color:"#fbbf24",
       why:"Miglior equilibrio velocità/accuratezza per il debug quotidiano (90% dei casi). Abbastanza intelligente e abbastanza veloce.",
-      tips:["Includi: codice + errore esatto + comportamento atteso","Specifica linguaggio, framework, versione","Per bug complessi: chiedi prima l'analisi, poi il fix","Se bloccato → scala a Opus o Codex"]},
-    alt:{model:"GPT-5.4 (Codex) / Opus 4.6",color:"#10A37F",why:"<b>Codex:</b> esegue il codice, naviga filesystem, testa il fix in autonomia — ideale per debug su intero repo.<br><b>Opus:</b> escalation quando sei bloccato da ore — la profondità può sbloccarti.<br><b>DeepSeek V3.2, Kimi K2.5:</b> alternative valide se self-hosted (entrambi eccellenti su coding)."},
-    avoid:"Modelli open piccoli (<10B) per bug non banali — mancano contesto."},
+      tips:["Includi: codice + errore esatto + comportamento atteso","Specifica linguaggio, framework, versione","Per bug complessi: chiedi prima analisi, poi fix","Bloccato? → scala a Opus o Codex"]},
+    alt:{model:"GPT-5.4 (Codex) / Opus / DeepSeek",color:"#34d399",why:`<b style="color:#34d399">Codex:</b> esegue codice, naviga filesystem, testa fix in autonomia.<br><b style="color:#a78bfa">Opus:</b> escalation quando bloccato da ore su bug complesso.<br><b style="color:#38bdf8">DeepSeek V3.2, Kimi K2.5:</b> alternative valide se self-hosted.`},
+    avoid:"Modelli open piccoli (<10B) per bug non banali."},
   {id:"culture",icon:"🌍",title:"Cultura generale",
     example:"Es: storia, geografia, filosofia, curiosità, divulgazione",
     needs:"Conoscenze ampie, non inventare fatti, tono chiaro, web search.",
-    top:{model:"Gemini 3.1 Pro",color:"#4285F4",
+    top:{model:"Gemini 3.1 Pro",color:"#60a5fa",
       why:"Training massivo + Google Search = il più affidabile per domande fattuali. Multilingue, costo bassissimo per conversazioni esplorative.",
       tips:["Per argomenti storici chiedi fonti","Specifica il tono: divulgativo o accademico","Per temi controversi chiedi più prospettive"]},
-    alt:{model:"Opus 4.6 / Grok 4.1",color:"#7C3AED",why:"<b>Opus:</b> se la qualità della spiegazione conta più del prezzo — scrive risposte più profonde e piacevoli da leggere.<br><b>Grok:</b> vantaggio su attualità grazie a X real-time. Tono informale."},
+    alt:{model:"Opus 4.6 / Grok 4.1",color:"#a78bfa",why:`<b style="color:#a78bfa">Opus:</b> spiegazioni più profonde e piacevoli da leggere, se la qualità conta più del prezzo.<br><b style="color:#38bdf8">Grok:</b> attualità in tempo reale via X. Tono informale.`},
     avoid:"Modelli open piccoli — conoscenze generali soffrono, allucinazioni alte."},
   {id:"domain",icon:"🎯",title:"Info specifiche ambito",
     example:"Es: normative fiscali, standard medici, regolamenti, API di nicchia",
     needs:"Saper dire \"non lo so\", web search per verificare, caricare doc nel contesto.",
-    top:{model:"Dipende dalla dimensione dei doc",color:"#4285F4",
-      why:`<b style="color:#4285F4">Documenti > 200K token</b> (regolamenti lunghi, manuali interi) → <b>Gemini 3.1 Pro</b> — 1M contesto, carichi tutto, search integrato per verifiche.<br><br><b style="color:#7C3AED">Documenti < 200K token</b> (una API reference, un regolamento specifico) → <b>Claude Opus 4.6</b> — ragiona meglio sul materiale, trova implicazioni non ovvie.`,
-      tips:["SEMPRE caricare la doc ufficiale nel contesto","Chiedi di citare quale sezione supporta la risposta","Per normative: specifica paese, anno, ambito","Soglia pratica: ~200K token → sotto Opus, sopra Gemini"]},
-    alt:{model:"Complementari: Gemini ↔ Opus",color:"#7C3AED",why:"Il fattore decisivo è la dimensione dei documenti, non la difficoltà dell'ambito."},
-    avoid:"Qualsiasi modello senza web search per info che cambiano. Mai fidarsi della conoscenza interna per dettagli verificabili."},
+    top:{model:"Dipende dalla dimensione dei doc",color:"#60a5fa",
+      why:`<b style="color:#60a5fa">Doc > 200K token</b> → <b>Gemini 3.1 Pro</b> — 1M contesto, carichi tutto, search integrato.<br><br><b style="color:#a78bfa">Doc < 200K token</b> → <b>Claude Opus 4.6</b> — ragiona meglio sul materiale, trova implicazioni non ovvie.`,
+      tips:["SEMPRE caricare la doc ufficiale nel contesto","Chiedi di citare la sezione che supporta la risposta","Per normative: specifica paese, anno, ambito","Soglia pratica ~200K: sotto → Opus, sopra → Gemini"]},
+    alt:{model:"Complementari: Gemini ↔ Opus",color:"#a78bfa",why:"Il fattore decisivo è la dimensione dei documenti, non la difficoltà dell'ambito."},
+    avoid:"Qualsiasi modello senza web search per info che cambiano. Mai fidarsi della conoscenza interna."},
   {id:"docs",icon:"📄",title:"Analisi grandi doc",
-    example:"Es: sintetizzare contratti, report 200+ pagine, confrontare doc, estrarre dati",
+    example:"Es: sintetizzare contratti, report 200+ pag, confrontare doc, estrarre dati",
     needs:"Contesto enorme, sintesi senza perdere dettagli, domande iterative.",
-    top:{model:"Dipende dalla dimensione",color:"#4285F4",
-      why:`<b style="color:#4285F4">Doc grandi (>200 pag)</b> → <b>Gemini 3.1 Pro</b> — vincitore netto. 1M token = PDF 900 pag, 8.4h audio, 1h video. $2/M.<br><br><b style="color:#7C3AED">Doc medi (50-150 pag, <200K token)</b> → <b>Claude Opus 4.6</b> — analisi qualitativamente migliore. Trova connessioni che Gemini può mancare.`,
+    top:{model:"Dipende dalla dimensione",color:"#60a5fa",
+      why:`<b style="color:#60a5fa">Doc grandi (>200 pag)</b> → <b>Gemini 3.1 Pro</b> — 1M token = PDF 900 pag, 8.4h audio, 1h video. $2/M.<br><br><b style="color:#a78bfa">Doc medi (50-150 pag, <200K tok)</b> → <b>Claude Opus 4.6</b> — analisi qualitativamente migliore, trova connessioni che Gemini può mancare.`,
       tips:["Doc grandi: carica intero in Gemini, non spezzettarlo","Doc medi: usa Opus per analisi più profonda","Prima sommario strutturato, poi drill-down","Per confronto: carica entrambi nello stesso prompt","Specifica formato output: tabella, JSON, elenco"]},
-    alt:{model:"Llama 4 Scout (self-hosting)",color:"#0668E1",why:"Per privacy/compliance: 10M token di contesto, open source, gratuito. Reasoning inferiore ma impressionante per estrazione e sintesi."},
-    avoid:"Modelli ≤128K per doc grandi (Grok, Mistral, DeepSeek) — troncano perdendo info."},
+    alt:{model:"Llama 4 Scout (self-hosting)",color:"#60a5fa",why:"Per privacy/compliance: 10M token, open source, gratuito. Reasoning inferiore ma impressionante per estrazione."},
+    avoid:"Modelli ≤128K per doc grandi — troncano perdendo info."},
   {id:"compare",icon:"🔗",title:"Comparativa tool/repo",
     example:"Es: confrontare 3 repo GitHub, comparare tool, analizzare prodotti concorrenti",
-    needs:"Accesso web per leggere le fonti, ingestione di contenuto esterno, sintesi comparativa strutturata.",
-    top:{model:"Perplexity + Gemini 3.1 Pro",color:"#4285F4",
-      why:`Il fattore decisivo qui non è quale modello ragiona meglio, ma <b>quale piattaforma può leggere le fonti</b>. Perplexity è costruito nativamente per web research — fetcha URL sistematicamente, crawla repo e documentazione. Con Gemini 3.1 Pro come backend hai 1M di contesto per ingerire tutto insieme, e costa una frazione di Opus.<br><br>Questa è la lezione chiave: <b>la piattaforma conta quanto il modello</b>.`,
-      tips:["Usa Perplexity per il crawling e l'ingestione delle fonti","Specifica URL esatti — non lasciare che cerchi da solo","Chiedi una struttura di confronto prima del report","Se servono dettagli tecnici profondi dopo il confronto, porta i risultati in Opus"]},
-    alt:{model:"Claude Opus 4.6 (su claude.ai) / GPT-5.4 (Codex)",color:"#7C3AED",why:"<b>Opus su claude.ai:</b> ha web fetch, ragiona bene sulla comparativa, sa fare domande. Funziona ma meno sistematico nel crawling e più costoso.<br><b>GPT-5.4 su Codex:</b> può clonare ed esplorare i repo direttamente. Forte se serve analisi del codice sorgente."},
+    needs:"Accesso web per leggere le fonti, ingestione contenuto, sintesi comparativa strutturata.",
+    top:{model:"Perplexity + modello a scelta",color:"#60a5fa",
+      why:`Il fattore decisivo è <b>quale piattaforma può leggere le fonti</b>, non quale modello ragiona meglio. Perplexity è costruito per web research — fetcha URL sistematicamente, crawla repo e documentazione.<br><br><b style="color:#fbbf24">Perplexity + Sonnet 4.6</b> — se ti interessa qualità della comparativa: struttura, precisione, elicitation (sa chiedere prima di rispondere).<br><br><b style="color:#60a5fa">Perplexity + Gemini 3.1 Pro</b> — se i repo sono enormi o il budget conta: 1M contesto per ingerire tutto.`,
+      tips:["Usa Perplexity per crawling e ingestione fonti","Specifica URL esatti — non lasciare che cerchi da solo","Chiedi struttura di confronto prima del report","Se servono dettagli profondi dopo, porta i risultati in Opus","La piattaforma conta quanto il modello"]},
+    alt:{model:"Claude Opus (claude.ai) / GPT-5.4 (Codex)",color:"#a78bfa",why:`<b style="color:#a78bfa">Opus su claude.ai:</b> ha web fetch, buona comparativa, sa fare domande. Funziona ma meno sistematico nel crawling.<br><b style="color:#34d399">Codex:</b> può clonare ed esplorare repo. Forte se serve analisi del codice sorgente.`},
     avoid:"Qualsiasi modello senza accesso web — non conosce tool di nicchia recenti e inventerà."}
 ];
 
-const generalUseCases = [
-  {task:"Coding quotidiano",best:"Sonnet 4.6",alt:"Mistral Medium 3",why:"Veloce + preciso; Medium 3 se budget è critico",bc:"#D97706"},
-  {task:"Refactoring / SWE",best:"Opus 4.6",alt:"GPT-5.4",why:"Opus #1 SWE-Bench; GPT-5.4 eccelle in Codex",bc:"#7C3AED"},
-  {task:"Doc enormi (>200K tok)",best:"Gemini 3.1 Pro",alt:"Llama 4 Scout",why:"Gemini: 1M multimodale; Scout: 10M open",bc:"#4285F4"},
-  {task:"Doc medi (<200K tok)",best:"Opus 4.6",alt:"Gemini 3.1 Pro",why:"Opus: ragionamento superiore; Gemini se costo conta",bc:"#7C3AED"},
-  {task:"Automazione agenti",best:"GPT-5.4",alt:"Kimi K2.5",why:"GPT-5.4: computer use; K2.5: sub-agent paralleli",bc:"#10A37F"},
-  {task:"Comparativa tool/repo",best:"Perplexity + Gemini",alt:"Opus su claude.ai",why:"Perplexity: crawling nativo; la piattaforma conta",bc:"#4285F4"},
-  {task:"Scrittura",best:"Opus 4.6",alt:"Sonnet 4.6",why:"Opus qualità top; Sonnet velocità",bc:"#7C3AED"},
-  {task:"Self-hosting",best:"DeepSeek V3.2",alt:"Qwen 3.5",why:"DeepSeek: qualità/costo; Qwen: consumer HW",bc:"#0066FF"},
-  {task:"Reasoning scientifico",best:"Gemini 3.1 Pro",alt:"Opus 4.6",why:"Gemini #1 GPQA; Opus PhD-level",bc:"#4285F4"},
-  {task:"Multilingue / CJK",best:"Qwen 3.5",alt:"Mistral Large 3",why:"Qwen: 119 lingue; Mistral: EU",bc:"#6366F1"},
-  {task:"Real-time / social",best:"Grok 4.1",alt:"Gemini 3.1 Pro",why:"Grok: live X; Gemini: search",bc:"#1DA1F2"},
-  {task:"Enterprise EU",best:"Mistral Large 3",alt:"Nemotron 3",why:"Mistral: Apache 2.0; Nemotron: TensorRT",bc:"#FF7000"},
-  {task:"Multi-agent",best:"Nemotron 3 Super",alt:"Kimi K2.5",why:"Nemotron: multi-agent; K2.5: sub-agent",bc:"#76B900"},
-  {task:"Coding locale",best:"Qwen 3.5 (9B)",alt:"Nemotron Nano",why:"Qwen: top HumanEval; Nano: thinking budget",bc:"#6366F1"},
-  {task:"Budget minimo API",best:"Mistral Medium 3",alt:"DeepSeek V3.2",why:"$0.40 vs $0.55/M — entrambi ottimi",bc:"#FF7000"}
+const generalUseCases=[
+  {task:"Coding quotidiano",best:"Sonnet 4.6",alt:"Mistral Medium 3",why:"Veloce + preciso; Medium 3 se budget è critico",bc:"#fbbf24"},
+  {task:"Refactoring / SWE",best:"Opus 4.6",alt:"GPT-5.4",why:"Opus #1 SWE-Bench; GPT-5.4 eccelle in Codex",bc:"#a78bfa"},
+  {task:"Doc enormi (>200K)",best:"Gemini 3.1 Pro",alt:"Llama 4 Scout",why:"Gemini: 1M multimodale; Scout: 10M open",bc:"#60a5fa"},
+  {task:"Doc medi (<200K)",best:"Opus 4.6",alt:"Gemini 3.1 Pro",why:"Opus: ragionamento superiore; Gemini se costo conta",bc:"#a78bfa"},
+  {task:"Automazione agenti",best:"GPT-5.4",alt:"Kimi K2.5",why:"GPT-5.4: computer use; K2.5: sub-agent paralleli",bc:"#34d399"},
+  {task:"Comparativa tool/repo",best:"Perplexity + Sonnet/Gemini",alt:"Opus su claude.ai",why:"Piattaforma > modello per web research",bc:"#60a5fa"},
+  {task:"Scrittura",best:"Opus 4.6",alt:"Sonnet 4.6",why:"Opus qualità top; Sonnet velocità",bc:"#a78bfa"},
+  {task:"Self-hosting",best:"DeepSeek V3.2",alt:"Qwen 3.5",why:"DeepSeek: qualità/costo; Qwen: consumer HW",bc:"#38bdf8"},
+  {task:"Reasoning scientifico",best:"Gemini 3.1 Pro",alt:"Opus 4.6",why:"Gemini #1 GPQA; Opus PhD-level",bc:"#60a5fa"},
+  {task:"Multilingue / CJK",best:"Qwen 3.5",alt:"Mistral Large 3",why:"Qwen: 119 lingue; Mistral: EU",bc:"#818cf8"},
+  {task:"Real-time / social",best:"Grok 4.1",alt:"Gemini 3.1 Pro",why:"Grok: live X; Gemini: search",bc:"#38bdf8"},
+  {task:"Enterprise EU",best:"Mistral Large 3",alt:"Nemotron 3",why:"Mistral: Apache 2.0; Nemotron: TensorRT",bc:"#fb923c"},
+  {task:"Multi-agent",best:"Nemotron 3 Super",alt:"Kimi K2.5",why:"Nemotron: nativo; K2.5: sub-agent",bc:"#a3e635"},
+  {task:"Coding locale",best:"Qwen 3.5 (9B)",alt:"Nemotron Nano",why:"Qwen: top HumanEval; Nano: thinking",bc:"#818cf8"},
+  {task:"Budget minimo API",best:"Mistral Medium 3",alt:"DeepSeek V3.2",why:"$0.40 vs $0.55/M",bc:"#fb923c"}
 ];
 
-const tierColors={frontier:"#EF4444",workhorse:"#F59E0B",open:"#22C55E"};
+const tierColors={frontier:"#f87171",workhorse:"#fbbf24",open:"#4ade80"};
 
-// TAB SWITCHING
 let currentTab="scenarios";
 document.querySelectorAll('.tab').forEach(btn=>{
   btn.addEventListener('click',()=>{
@@ -241,43 +249,41 @@ document.querySelectorAll('.tab').forEach(btn=>{
   });
 });
 
-// SCENARIOS
 let currentScenario="research";
 function renderScenarios(){
   const el=document.getElementById('panel-scenarios');
   const sc=scenarios.find(s=>s.id===currentScenario);
 
-  // Platform note
-  let platformNote=`<div class="note-box blue"><b>📌 Regola trasversale:</b> Le raccomandazioni dipendono dalla <b>piattaforma + modello</b>, non solo dal modello. Lo stesso LLM con o senza web search, con o senza code execution, è un prodotto diverso ai fini pratici. Chiediti sempre: "nella piattaforma che uso, questo modello può accedere alle fonti che mi servono?"</div>`;
+  let platformNote=`<div class="note-box blue"><b>📌 Regola trasversale:</b> Le raccomandazioni dipendono dalla <b>piattaforma + modello</b>, non solo dal modello. Lo stesso LLM con o senza web search, con o senza code execution, è un prodotto diverso. Chiediti: "nella piattaforma che uso, il modello può accedere alle fonti che mi servono?"</div>`;
 
   let grid='<div class="sc-grid">';
   scenarios.forEach(s=>{
     const act=s.id===currentScenario;
-    grid+=`<button class="sc-btn ${act?'active':''}" data-sc="${s.id}" style="${act?'background:'+sc.top.color+'10;border-bottom-color:'+sc.top.color:''}">
+    grid+=`<button class="sc-btn ${act?'active':''}" data-sc="${s.id}" style="${act?'background:'+sc.top.color+'15;border-bottom-color:'+sc.top.color+';border-color:'+sc.top.color+'40':''}">
       <div class="sc-icon">${s.icon}</div>
-      <div class="sc-label" style="font-weight:${act?700:400}">${s.title}</div></button>`;
+      <div class="sc-label" style="font-weight:${act?700:400};${act?'color:#fff':''}">${s.title}</div></button>`;
   });
   grid+='</div>';
 
   let detail=`<div class="fade">
-    <div class="sc-context"><div class="sc-example">${sc.example}</div><div style="line-height:1.45">${sc.needs}</div></div>
-    <div class="sc-top" style="border-color:${sc.top.color};background:${sc.top.color}06">
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-        <span class="sc-badge" style="background:${sc.top.color}">Consigliato</span>
+    <div class="sc-context"><div class="sc-example">${sc.example}</div><div style="line-height:1.5">${sc.needs}</div></div>
+    <div class="sc-top" style="border-color:${sc.top.color}50;background:${sc.top.color}08">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+        <span class="sc-badge" style="background:${sc.top.color}">${'Consigliato'}</span>
         <span class="sc-top-model" style="color:${sc.top.color}">${sc.top.model}</span>
       </div>
       <div class="sc-top-why">${sc.top.why}</div>
-      <div style="margin-top:8px"><div class="sc-tips-title">💡 Tips:</div>
+      <div style="margin-top:10px"><div class="sc-tips-title">💡 Tips:</div>
       ${sc.top.tips.map(t=>`<div class="sc-tip">• ${t}</div>`).join('')}</div>
     </div>
-    <div class="sc-alt" style="border-color:${sc.alt.color}30;border-left-color:${sc.alt.color}">
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+    <div class="sc-alt" style="border-color:${sc.alt.color}25;border-left-color:${sc.alt.color}">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">
         <span class="sc-alt-label">Alternativa</span>
         <span class="sc-alt-model" style="color:${sc.alt.color}">${sc.alt.model}</span>
       </div>
       <div class="sc-alt-why">${sc.alt.why}</div>
     </div>
-    <div class="sc-avoid"><b>⚠️ Evita: </b><span style="opacity:.65">${sc.avoid}</span></div>
+    <div class="sc-avoid"><b>⚠️ Evita: </b>${sc.avoid}</div>
   </div>`;
 
   el.innerHTML=platformNote+grid+detail;
@@ -287,35 +293,35 @@ function renderScenarios(){
 }
 renderScenarios();
 
-// MODELS
 let currentFilter="all";
 function renderModels(){
   const el=document.getElementById('panel-models');
   const filtered=currentFilter==="all"?models:models.filter(m=>m.tier===currentFilter);
   let filters='<div class="filters">';
   [{id:"all",l:"Tutti"},{id:"frontier",l:"Frontier"},{id:"workhorse",l:"Workhorse"},{id:"open",l:"Open"}].forEach(f=>{
-    const act=f.id===currentFilter;const tc=tierColors[f.id]||"#7C3AED";
-    filters+=`<button class="fbtn ${act?'active':''}" data-filter="${f.id}" style="${act?'border-color:'+tc+';background:'+tc+'12;color:'+tc+';font-weight:700':''}">${f.l}</button>`;
+    const act=f.id===currentFilter;const tc=tierColors[f.id]||"#a78bfa";
+    filters+=`<button class="fbtn ${act?'active':''}" data-filter="${f.id}" style="${act?'border-color:'+tc+';background:'+tc+'18;color:'+tc:''}">
+      ${f.l}</button>`;
   });
   filters+='</div>';
 
-  let note=`<div class="note-box"><b>Nota prezzi:</b> Sonnet 4.6 e Opus 4.6 output price da verificare su <a href="https://docs.anthropic.com" target="_blank">docs Anthropic</a>. Dato "119 lingue" Qwen confermato per v3, probabile ≥ per 3.5. DeepSeek V3.2: solo variante Speciale supera GPT-5.</div>`;
+  let note=`<div class="note-box amber"><b>Nota prezzi:</b> Sonnet 4.6 e Opus 4.6 output price da verificare su <a href="https://docs.anthropic.com" target="_blank">docs Anthropic</a>. "119 lingue" Qwen confermato per v3. DeepSeek V3.2: solo variante Speciale supera GPT-5.</div>`;
 
   let cards='';
-  filtered.forEach((m,i)=>{
-    cards+=`<div class="card" data-idx="${i}" style="border-left-color:${m.color}">
+  filtered.forEach(m=>{
+    cards+=`<div class="card" style="border-left-color:${m.color}">
       <div class="card-head"><div class="card-tags">
         <span class="card-model" style="color:${m.color}">${m.model}</span>
         <span class="card-provider">${m.provider}</span>
-        <span class="card-type" style="background:${tierColors[m.tier]}15;color:${tierColors[m.tier]}">${m.type}</span>
+        <span class="card-type" style="background:${tierColors[m.tier]}18;color:${tierColors[m.tier]}">${m.type}</span>
       </div><span class="toggle">+</span></div>
       <div class="card-meta">Ctx: ${m.context} · ${m.pricing} /M token</div>
       <div class="card-details">
-        <div style="margin-bottom:6px"><span class="card-section-title" style="color:${m.color}">Punti di forza</span>
-          ${m.strengths.map(s=>'<div style="margin-top:1px">• '+s+'</div>').join('')}</div>
-        <div style="margin-bottom:6px"><span class="card-section-title" style="color:${m.color}">Ideale per</span>
-          <div style="margin-top:1px">${m.bestFor}</div></div>
-        <div><span class="card-limits">Limiti</span><div style="margin-top:1px;opacity:.65">${m.weaknesses}</div></div>
+        <div style="margin-bottom:7px"><span class="card-section-title" style="color:${m.color}">Punti di forza</span>
+          ${m.strengths.map(s=>'<div style="margin-top:2px">• '+s+'</div>').join('')}</div>
+        <div style="margin-bottom:7px"><span class="card-section-title" style="color:${m.color}">Ideale per</span>
+          <div style="margin-top:2px">${m.bestFor}</div></div>
+        <div><span class="card-limits">Limiti</span><div style="margin-top:2px;opacity:.7">${m.weaknesses}</div></div>
       </div></div>`;
   });
 
@@ -332,12 +338,11 @@ function renderModels(){
 }
 renderModels();
 
-// MATRIX
 function renderMatrix(){
   const el=document.getElementById('panel-matrix');
-  const dot=(v)=>`<span class="dot-full" style="color:${['','#EF4444','#F97316','#EAB308','#22C55E','#10B981'][v]}">${'●'.repeat(v)}</span><span class="dot-empty">${'●'.repeat(5-v)}</span>`;
+  const dot=v=>`<span class="dot-full" style="color:${['','#f87171','#fb923c','#fbbf24','#4ade80','#34d399'][v]}">${'●'.repeat(v)}</span><span class="dot-empty">${'●'.repeat(5-v)}</span>`;
   let html=`<div class="note-box"><b>⚠️ Nota:</b> I pallini sono stime qualitative basate su benchmark pubblici, non punteggi ufficiali. Usali come bussola, non come verdetto.</div>`;
-  html+=`<div style="overflow-x:auto"><table class="matrix">
+  html+=`<div style="overflow-x:auto;border-radius:10px;border:1px solid var(--border)"><table class="matrix">
     <thead><tr><th style="text-align:left">Modello</th><th>Coding</th><th>Reason.</th><th>Writing</th><th>Agenti</th><th>Multim.</th><th>Costo</th><th>Open</th></tr></thead><tbody>`;
   models.forEach(m=>{
     const s=m.scores;
@@ -346,21 +351,20 @@ function renderMatrix(){
       <td>${dot(s.age)}</td><td>${dot(s.mul)}</td><td>${dot(s.cos)}</td>
       <td>${s.opn?'✅':'🔒'}</td></tr>`;
   });
-  html+='</tbody></table></div><p style="font-size:9px;opacity:.35;margin-top:4px;text-align:center">●●●●● = eccellente · Costo: più pallini = più economico</p>';
+  html+='</tbody></table></div><p style="font-size:9px;color:var(--text3);margin-top:6px;text-align:center">●●●●● = eccellente · Costo: più pallini = più economico</p>';
   el.innerHTML=html;
 }
 renderMatrix();
 
-// GENERAL
 function renderGeneral(){
   const el=document.getElementById('panel-general');
-  let html=`<div style="border-radius:8px;overflow:hidden;border:1px solid #e0e0e0"><div style="overflow-x:auto"><table class="gen-table">
+  let html=`<div class="gen-wrap"><div style="overflow-x:auto"><table class="gen-table">
     <thead><tr><th>Task</th><th>Migliore</th><th>Alternativa</th><th>Perché</th></tr></thead><tbody>`;
   generalUseCases.forEach(uc=>{
     html+=`<tr><td style="font-weight:600;white-space:nowrap">${uc.task}</td>
-      <td><span class="gen-best" style="background:${uc.bc}12;color:${uc.bc}">${uc.best}</span></td>
-      <td style="opacity:.6;font-size:10px">${uc.alt}</td>
-      <td style="opacity:.55;font-size:10px">${uc.why}</td></tr>`;
+      <td><span class="gen-best" style="background:${uc.bc}18;color:${uc.bc}">${uc.best}</span></td>
+      <td class="gen-alt">${uc.alt}</td>
+      <td class="gen-why">${uc.why}</td></tr>`;
   });
   html+='</tbody></table></div></div>';
   el.innerHTML=html;
