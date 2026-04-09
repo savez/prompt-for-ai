@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spec Kit vs Superpowers vs OpenSpec</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-card: #161b22;
+    --bg-card-alt: #1c2129;
+    --bg-table-head: #1a2030;
+    --bg-table-row: #161b22;
+    --bg-table-row-alt: #1c2129;
+    --border: #30363d;
+    --border-accent: #3d444d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --text-dim: #6e7681;
+    --accent-blue: #58a6ff;
+    --accent-green: #3fb950;
+    --accent-orange: #d29922;
+    --accent-red: #f85149;
+    --accent-purple: #bc8cff;
+    --accent-cyan: #39d2c0;
+    --speckit-color: #58a6ff;
+    --superpowers-color: #bc8cff;
+    --openspec-color: #3fb950;
+    --star: #d29922;
+    --tag-bg: rgba(88,166,255,0.12);
+    --tag-text: #58a6ff;
+    --code-bg: #0d1117;
+    --scrollbar-bg: #161b22;
+    --scrollbar-thumb: #30363d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+    line-height: 1.7;
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-bg); }
+  ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
+
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  header h1 .vs { color: var(--text-dim); font-weight: 400; }
+  .sk { color: var(--speckit-color); }
+  .sp { color: var(--superpowers-color); }
+  .os { color: var(--openspec-color); }
+
+  header .subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .tool-pills {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .tool-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+  }
+
+  .tool-pill .stars { color: var(--star); font-size: 0.8rem; }
+
+  section {
+    margin-bottom: 3rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  h2 .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    color: var(--bg);
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.75rem 0;
+  }
+
+  p, li { color: var(--text); font-size: 0.92rem; }
+  p { margin-bottom: 0.75rem; }
+
+  .cards-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: var(--border-accent); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-header .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .card-header h4 {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .card .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 12px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-weight: 500;
+  }
+
+  .tag.purple { background: rgba(188,140,255,0.12); color: var(--superpowers-color); }
+  .tag.green { background: rgba(63,185,80,0.12); color: var(--openspec-color); }
+  .tag.orange { background: rgba(210,153,34,0.12); color: var(--accent-orange); }
+
+  .card p { font-size: 0.87rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+  .card strong { color: var(--text); }
+
+  .excels ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .excels li {
+    position: relative;
+    padding: 0.3rem 0 0.3rem 1.25rem;
+    font-size: 0.87rem;
+    color: var(--text-muted);
+  }
+
+  .excels li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-cyan);
+    font-weight: 700;
+  }
+
+  .excels li strong { color: var(--text); }
+
+  /* Feature table */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.87rem;
+    min-width: 700px;
+  }
+
+  thead th {
+    background: var(--bg-table-head);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+
+  thead th:first-child { border-radius: 9px 0 0 0; }
+  thead th:last-child { border-radius: 0 9px 0 0; }
+
+  tbody td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) td { background: var(--bg-table-row-alt); }
+  tbody tr:last-child td { border-bottom: none; }
+
+  .yes { color: var(--accent-green); }
+  .partial { color: var(--accent-orange); }
+  .no { color: var(--text-dim); }
+
+  /* Workflow */
+  .workflow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1rem;
+  }
+
+  .workflow-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    border-top: 3px solid;
+  }
+
+  .workflow-card.sk-border { border-top-color: var(--speckit-color); }
+  .workflow-card.sp-border { border-top-color: var(--superpowers-color); }
+  .workflow-card.os-border { border-top-color: var(--openspec-color); }
+
+  .workflow-card h4 { font-size: 0.95rem; margin-bottom: 0.75rem; }
+
+  .step {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .sk-border .step-num { background: rgba(88,166,255,0.2); color: var(--speckit-color); }
+  .sp-border .step-num { background: rgba(188,140,255,0.2); color: var(--superpowers-color); }
+  .os-border .step-num { background: rgba(63,185,80,0.2); color: var(--openspec-color); }
+
+  .step-content { font-size: 0.83rem; color: var(--text-muted); }
+  .step-content code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: var(--text);
+    font-family: 'SF Mono', Consolas, monospace;
+  }
+  .step-content .trigger {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.05rem 0.4rem;
+    border-radius: 8px;
+    background: rgba(188,140,255,0.15);
+    color: var(--superpowers-color);
+    margin-left: 0.25rem;
+    font-weight: 600;
+  }
+
+  .planning-note {
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    background: var(--bg);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-left: 3px solid;
+  }
+
+  .sk-border .planning-note { border-left-color: var(--speckit-color); }
+  .sp-border .planning-note { border-left-color: var(--superpowers-color); }
+  .os-border .planning-note { border-left-color: var(--openspec-color); }
+
+  /* Coexistence */
+  .coex-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .coex-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .coex-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+  }
+
+  .coex-badge.warn { background: rgba(210,153,34,0.15); color: var(--accent-orange); }
+  .coex-badge.bad { background: rgba(248,81,73,0.15); color: var(--accent-red); }
+
+  .coex-card h4 { font-size: 0.95rem; }
+  .coex-card p { font-size: 0.85rem; color: var(--text-muted); }
+
+  .callout {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-orange);
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .callout strong { color: var(--accent-orange); }
+
+  .callout.info { border-left-color: var(--accent-blue); }
+  .callout.info strong { color: var(--accent-blue); }
+
+  /* Rating table */
+  .rating-section {
+    margin-bottom: 1.25rem;
+  }
+
+  .rating-section .rating-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: var(--text);
+  }
+
+  .rating-section .rating-desc {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 0.6rem;
+  }
+
+  .rating-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .rating-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .rating-label {
+    width: 110px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .rating-bar-bg {
+    flex: 1;
+    height: 20px;
+    background: var(--bg);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .rating-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+    display: flex;
+    align-items: center;
+    padding-left: 6px;
+  }
+
+  .rating-bar-fill span {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--bg);
+  }
+
+  .bar-sk { background: var(--speckit-color); }
+  .bar-sp { background: var(--superpowers-color); }
+  .bar-os { background: var(--openspec-color); }
+
+  .rating-detail {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-top: 0.35rem;
+    padding-left: 116px;
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 1rem 0.5rem; }
+    header h1 { font-size: 1.4rem; }
+    .cards-3 { grid-template-columns: 1fr; }
+    .workflow-grid { grid-template-columns: 1fr; }
+    .rating-label { width: 80px; font-size: 0.72rem; }
+    .rating-detail { padding-left: 86px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1><span class="sk">Spec Kit</span> <span class="vs">vs</span> <span class="sp">Superpowers</span> <span class="vs">vs</span> <span class="os">OpenSpec</span></h1>
+  <p class="subtitle">Comparativa dettagliata dei framework per Spec-Driven Development con AI coding agents</p>
+  <div class="tool-pills">
+    <div class="tool-pill"><span class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--speckit-color);"></span> github/spec-kit <span class="stars">⭐ 81.4k</span></div>
+    <div class="tool-pill"><span class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--superpowers-color);"></span> obra/superpowers <span class="stars">⭐ 137k</span></div>
+    <div class="tool-pill"><span class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--openspec-color);"></span> Fission-AI/OpenSpec <span class="stars">⭐ 37.7k</span></div>
+  </div>
+</header>
+
+<!-- 1. IDENTITÀ -->
+<section>
+  <h2><span class="num">1</span> Identità e Filosofia</h2>
+  <div class="cards-3">
+    <div class="card">
+      <div class="card-header"><span class="dot" style="background:var(--speckit-color)"></span><h4>Spec Kit</h4></div>
+      <div class="meta">
+        <span class="tag">Python / uv</span>
+        <span class="tag">GitHub Official</span>
+        <span class="tag">MIT</span>
+      </div>
+      <p><strong>Spec-Driven Development</strong> — le specifiche diventano eseguibili. Il codice segue la spec, non il contrario.</p>
+      <p>Strutturato con fasi rigide: constitution → specify → plan → tasks → implement. Ogni fase produce artefatti Markdown versionati in <code>.specify/</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="dot" style="background:var(--superpowers-color)"></span><h4>Superpowers</h4></div>
+      <div class="meta">
+        <span class="tag purple">Shell / JS</span>
+        <span class="tag purple">Jesse Vincent</span>
+        <span class="tag purple">MIT</span>
+      </div>
+      <p><strong>Agentic Skills Framework</strong> — skill composabili che l'agente attiva automaticamente. Non serve invocare comandi: l'agente "ha i superpoteri".</p>
+      <p>Behavior-driven. L'agente rileva il contesto e attiva la skill appropriata. Enfasi fortissima su TDD (RED-GREEN-REFACTOR) e YAGNI.</p>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="dot" style="background:var(--openspec-color)"></span><h4>OpenSpec</h4></div>
+      <div class="meta">
+        <span class="tag green">TypeScript / npm</span>
+        <span class="tag green">Fission AI</span>
+        <span class="tag green">MIT</span>
+      </div>
+      <p><strong>Fluid, not rigid. Iterative, not waterfall.</strong> Spec-driven ma anti-cerimoniale. Aggiorna qualsiasi artefatto in qualsiasi momento.</p>
+      <p>Artifact-guided: ogni change ha la sua cartella con proposal, specs, design e tasks. Leggero e orientato al brownfield.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. FEATURES -->
+<section>
+  <h2><span class="num">2</span> Caratteristiche Principali</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Caratteristica</th><th><span class="sk">Spec Kit</span></th><th><span class="sp">Superpowers</span></th><th><span class="os">OpenSpec</span></th></tr>
+      </thead>
+      <tbody>
+        <tr><td>CLI dedicata</td><td class="yes">✅ <code>specify</code> (Python/uv)</td><td class="no">❌ Solo file config</td><td class="yes">✅ <code>openspec</code> (npm)</td></tr>
+        <tr><td>Slash commands</td><td class="yes">✅ <code>/speckit.*</code> (6 core + 3 opzionali)</td><td class="no">❌ Skill auto-triggered</td><td class="yes">✅ <code>/opsx:*</code> (3 core + 7 expanded)</td></tr>
+        <tr><td>Spec formali</td><td class="yes">✅ User stories + req con template</td><td class="partial">⚠️ Design doc da brainstorming</td><td class="yes">✅ Proposal + specs + design</td></tr>
+        <tr><td>Planning strutturato</td><td class="yes">✅ <code>/speckit.plan</code> + tech stack</td><td class="yes">✅ Skill <code>writing-plans</code></td><td class="yes">✅ Integrato in <code>/opsx:propose</code></td></tr>
+        <tr><td>Task breakdown</td><td class="yes">✅ Dipendenze + parallelismo <code>[P]</code></td><td class="yes">✅ Auto nei piani (2-5 min/task)</td><td class="yes">✅ <code>tasks.md</code> nella change</td></tr>
+        <tr><td>Esecuzione automatica</td><td class="yes">✅ <code>/speckit.implement</code></td><td class="yes">✅ Subagent + executing-plans</td><td class="yes">✅ <code>/opsx:apply</code></td></tr>
+        <tr><td>TDD enforcement</td><td class="partial">⚠️ Configurabile</td><td class="yes">✅ <strong>Nativo e obbligatorio</strong></td><td class="partial">⚠️ Dipende dal profilo</td></tr>
+        <tr><td>Code review integrata</td><td class="partial">⚠️ Consistency check</td><td class="yes">✅ Request + receive review</td><td class="partial">⚠️ Non esplicita</td></tr>
+        <tr><td>Git workflow</td><td class="yes">✅ Branch numerati <code>001-*</code></td><td class="yes">✅ Git worktrees isolati</td><td class="yes">✅ Archiviazione changes</td></tr>
+        <tr><td>Subagent orchestration</td><td class="no">❌</td><td class="yes">✅ <strong>Two-stage review</strong></td><td class="no">❌</td></tr>
+        <tr><td>Debugging sistematico</td><td class="no">❌</td><td class="yes">✅ 4 fasi + root cause</td><td class="no">❌</td></tr>
+        <tr><td>Extensions / Presets</td><td class="yes">✅ Ricco (stackabili)</td><td class="no">❌ Solo contribuzioni PR</td><td class="yes">✅ Profili configurabili</td></tr>
+        <tr><td>Dashboard</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅ Dashboard visuale</td></tr>
+        <tr><td>Brownfield esplicito</td><td class="yes">✅ Walkthrough documentati</td><td class="partial">⚠️ Funziona, non focus</td><td class="yes">✅ <strong>Brownfield-first</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 3. ECCELLONO IN -->
+<section>
+  <h2><span class="num">3</span> In Cosa Eccellono</h2>
+  <div class="cards-3">
+    <div class="card excels" style="border-top: 3px solid var(--speckit-color);">
+      <div class="card-header"><span class="dot" style="background:var(--speckit-color)"></span><h4>Spec Kit</h4></div>
+      <ul>
+        <li><strong>Rigore del processo</strong> — ogni fase è un gate esplicito. Il team sa sempre dove si trova.</li>
+        <li><strong>Documentation enterprise</strong> — constitution.md come "legge fondamentale". Ottimo per compliance.</li>
+        <li><strong>Clarification workflow</strong> — <code>/speckit.clarify</code> forza la rimozione di ambiguità PRIMA del plan. Riduce il rework.</li>
+        <li><strong>Extensions/Presets</strong> — sistema stratificato: overrides > presets > extensions > core. Supporta Agile, Kanban, DDD, regulatory.</li>
+        <li><strong>Walkthroughs reali</strong> — brownfield ASP.NET 307k LOC, Java 420k LOC / 180 moduli Maven.</li>
+      </ul>
+    </div>
+    <div class="card excels" style="border-top: 3px solid var(--superpowers-color);">
+      <div class="card-header"><span class="dot" style="background:var(--superpowers-color)"></span><h4>Superpowers</h4></div>
+      <ul>
+        <li><strong>Autonomia dell'agente</strong> — Claude Code lavora per ore senza deviare. Le skill sono mandatory, non suggerimenti.</li>
+        <li><strong>TDD nativo</strong> — RED-GREEN-REFACTOR hardcoded. Cancella codice scritto prima dei test.</li>
+        <li><strong>Subagent-driven development</strong> — subagent fresh per task con two-stage review (spec + quality).</li>
+        <li><strong>Debugging strutturato</strong> — 4 fasi, root cause tracing, defense-in-depth, condition-based waiting.</li>
+        <li><strong>Zero ceremony</strong> — nessun comando da ricordare. L'agente rileva il contesto e agisce.</li>
+      </ul>
+    </div>
+    <div class="card excels" style="border-top: 3px solid var(--openspec-color);">
+      <div class="card-header"><span class="dot" style="background:var(--openspec-color)"></span><h4>OpenSpec</h4></div>
+      <ul>
+        <li><strong>Fluidità</strong> — nessun phase gate. Modifica la proposal mentre stai già implementando.</li>
+        <li><strong>Brownfield-first</strong> — progettato per aggiungere feature a codebase esistenti.</li>
+        <li><strong>Setup veloce</strong> — <code>npm install -g</code> + <code>openspec init</code>. Operativo in secondi.</li>
+        <li><strong>Archiviazione ordinata</strong> — <code>/opsx:archive</code> mantiene la storia pulita.</li>
+        <li><strong>Dashboard visuale</strong> — overview dello stato di tutte le change.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 4. WORKFLOW -->
+<section>
+  <h2><span class="num">4</span> Workflow Step-by-Step</h2>
+  <div class="workflow-grid">
+    <div class="workflow-card sk-border">
+      <h4 class="sk">Spec Kit</h4>
+      <div class="step"><span class="step-num">1</span><span class="step-content"><code>specify init . --ai claude</code> — scaffolda <code>.specify/</code></span></div>
+      <div class="step"><span class="step-num">2</span><span class="step-content"><code>/speckit.constitution</code> — principi di progetto (constitution.md)</span></div>
+      <div class="step"><span class="step-num">3</span><span class="step-content"><code>/speckit.specify</code> — COSA vuoi (user stories, no tech stack)</span></div>
+      <div class="step"><span class="step-num">4</span><span class="step-content"><code>/speckit.clarify</code> — domande strutturate per rimuovere ambiguità</span></div>
+      <div class="step"><span class="step-num">5</span><span class="step-content"><code>/speckit.plan</code> — COME farlo (tech stack, architettura)</span></div>
+      <div class="step"><span class="step-num">6</span><span class="step-content"><code>/speckit.analyze</code> — cross-artifact consistency check</span></div>
+      <div class="step"><span class="step-num">7</span><span class="step-content"><code>/speckit.tasks</code> — task breakdown con dipendenze e <code>[P]</code></span></div>
+      <div class="step"><span class="step-num">8</span><span class="step-content"><code>/speckit.implement</code> — esegue tutto in ordine</span></div>
+      <div class="planning-note">Separazione netta tra "cosa" (specify) e "come" (plan). Il plan è dove dichiari il tech stack. Prima del plan, la conversazione è tech-agnostic.</div>
+    </div>
+
+    <div class="workflow-card sp-border">
+      <h4 class="sp">Superpowers</h4>
+      <div class="step"><span class="step-num">1</span><span class="step-content">Installa plugin <span class="trigger">SETUP</span></span></div>
+      <div class="step"><span class="step-num">2</span><span class="step-content">Parli di cosa costruire <span class="trigger">AUTO: brainstorming</span> — domande socratiche, alternative, design in chunk</span></div>
+      <div class="step"><span class="step-num">3</span><span class="step-content">Approvi il design <span class="trigger">AUTO: git-worktrees</span> — branch isolato, setup, verifica test baseline</span></div>
+      <div class="step"><span class="step-num">4</span><span class="step-content">Piano auto-generato <span class="trigger">AUTO: writing-plans</span> — task da 2-5 min con file path e codice completo</span></div>
+      <div class="step"><span class="step-num">5</span><span class="step-content">Dici "go" <span class="trigger">AUTO: subagent-dev</span> — subagent per task → review stage 1 (spec) → review stage 2 (quality)</span></div>
+      <div class="step"><span class="step-num">6</span><span class="step-content">Implementazione <span class="trigger">AUTO: TDD</span> — RED → GREEN → REFACTOR (cancella codice pre-test)</span></div>
+      <div class="step"><span class="step-num">7</span><span class="step-content">Tra i task <span class="trigger">AUTO: code-review</span> — issue per severità, critiche bloccano</span></div>
+      <div class="step"><span class="step-num">8</span><span class="step-content">Fine <span class="trigger">AUTO: finish-branch</span> — merge/PR/keep/discard + cleanup</span></div>
+      <div class="planning-note">Nessuna separazione rigida. Il brainstorming scorre nel design, che scorre nel planning. L'agente decide le transizioni. Il piano è scritto per "un junior entusiasta con scarso gusto" — istruzioni ultra-dettagliate.</div>
+    </div>
+
+    <div class="workflow-card os-border">
+      <h4 class="os">OpenSpec</h4>
+      <div class="step"><span class="step-num">1</span><span class="step-content"><code>openspec init</code> — genera config per l'agent</span></div>
+      <div class="step"><span class="step-num">2</span><span class="step-content"><code>/opsx:propose "feature"</code> — genera in un colpo: proposal.md, specs/, design.md, tasks.md</span></div>
+      <div class="step"><span class="step-num">3</span><span class="step-content">Modifica qualsiasi artefatto in qualsiasi momento (nessun phase gate)</span></div>
+      <div class="step"><span class="step-num">4</span><span class="step-content"><code>/opsx:apply</code> — implementa i task dalla checklist</span></div>
+      <div class="step"><span class="step-num">5</span><span class="step-content"><code>/opsx:verify</code> — verifica spec ↔ implementazione</span></div>
+      <div class="step"><span class="step-num">6</span><span class="step-content"><code>/opsx:archive</code> — archivia in <code>archive/YYYY-MM-DD-nome/</code></span></div>
+      <div class="planning-note">Planning e design generati insieme nella proposta. File separati ma nessun gate. Enfasi sull'iterazione: proponi → implementa → scopri vincolo → aggiorna spec → continua.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. AGENT COMPAT -->
+<section>
+  <h2><span class="num">5</span> Compatibilità con i Coding Agent</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Agent</th><th><span class="sk">Spec Kit</span></th><th><span class="sp">Superpowers</span></th><th><span class="os">OpenSpec</span></th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Claude Code</strong></td>
+          <td><code>specify init . --ai claude</code><br><span style="color:var(--text-dim)">Slash commands in .claude/commands/</span></td>
+          <td><code>/plugin install superpowers</code><br><span style="color:var(--text-dim)">Marketplace ufficiale • Best-in-class</span></td>
+          <td><code>openspec init</code> (auto-detect)<br><span style="color:var(--text-dim)">Slash commands generati</span></td>
+        </tr>
+        <tr>
+          <td><strong>opencode</strong></td>
+          <td><code>specify init . --ai opencode</code><br><span style="color:var(--text-dim)">Supporto nativo</span></td>
+          <td>Manuale: fetch INSTALL.md<br><span style="color:var(--text-dim)">Dir .opencode/ • Setup manuale</span></td>
+          <td><code>openspec init</code> (auto-detect)<br><span style="color:var(--text-dim)">Supportato</span></td>
+        </tr>
+        <tr>
+          <td><strong>GitHub Copilot</strong></td>
+          <td><code>specify init . --ai copilot</code><br><span style="color:var(--text-dim)">Supporto nativo</span></td>
+          <td>Plugin via marketplace<br><span style="color:var(--text-dim)">copilot plugin marketplace add</span></td>
+          <td><code>openspec init</code> (auto-detect)<br><span style="color:var(--text-dim)">Supportato</span></td>
+        </tr>
+        <tr>
+          <td><strong>N. agent totali</strong></td>
+          <td class="yes"><strong>25+</strong> (+ generic)</td>
+          <td class="partial"><strong>~6</strong></td>
+          <td class="yes"><strong>20+</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 6. PLANNING AGENT -->
+<section>
+  <h2><span class="num">6</span> Confronto del Planning Agent</h2>
+  <div class="cards-3">
+    <div class="card" style="border-top: 3px solid var(--speckit-color);">
+      <h4 class="sk">Planning come Processo Formale</h4>
+      <p><strong>Chi controlla il piano:</strong> TU. L'agente genera, tu validi e raffini.</p>
+      <p><strong>Granularità:</strong> Alta. File separati: plan.md, data-model.md, api-spec.json, research.md.</p>
+      <p><strong>Punto di forza:</strong> <code>/speckit.clarify</code> forza domande PRIMA del plan — singolo elemento che riduce di più il rework.</p>
+      <p><strong>Punto debole:</strong> La cerimonia completa (7 step) è pesante per feature piccole o bug fix.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--superpowers-color);">
+      <h4 class="sp">Planning come Conversazione Naturale</h4>
+      <p><strong>Chi controlla il piano:</strong> L'agente propone, tu validi. L'agente decide quando passare avanti.</p>
+      <p><strong>Granularità:</strong> Molto alta nei task (2-5 min, codice completo, file path) ma meno nella documentazione formale.</p>
+      <p><strong>Punto di forza:</strong> Two-stage review (spec + quality) durante esecuzione garantisce aderenza al piano.</p>
+      <p><strong>Punto debole:</strong> Meno tracciabilità. Il design doc è informale. Per audit enterprise potrebbe non bastare.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--openspec-color);">
+      <h4 class="os">Planning come Proposta Fluida</h4>
+      <p><strong>Chi controlla il piano:</strong> TU, con meno cerimonia. <code>/opsx:propose</code> genera tutto, poi modifichi liberamente.</p>
+      <p><strong>Granularità:</strong> Media. 4 artefatti generati insieme. Meno file rispetto a Spec Kit, ma sufficienti.</p>
+      <p><strong>Punto di forza:</strong> Velocità. Da idea a piano implementabile in un singolo comando.</p>
+      <p><strong>Punto debole:</strong> Senza phase gate, un team indisciplinato potrebbe saltare la validazione.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7. COESISTENZA -->
+<section>
+  <h2><span class="num">7</span> Possono Coesistere nello Stesso Progetto?</h2>
+
+  <div class="callout info">
+    <strong>Come funziona l'"auto-trigger" di Superpowers:</strong> Non c'è un runtime, un daemon, o un hook. Le skill sono prompt iniettati nel contesto dell'agente (via plugin su Claude Code, via file config su opencode/Copilot). L'"auto-trigger" significa che l'agente, leggendo le istruzioni, <em>dovrebbe</em> controllare le skill prima di ogni task. Ma non c'è un log o un indicatore visibile che confermi l'attivazione. L'unico modo per verificarlo è osservare il comportamento dell'agente.
+  </div>
+
+  <div class="callout">
+    <strong>Problema della priorità nel contesto:</strong> Quando più tool sono installati, l'agente ha nel contesto sia istruzioni esplicite (slash commands con prompt dettagliati) che istruzioni implicite (skill da attivare autonomamente). I comandi espliciti tendono a "vincere" sull'attenzione dell'agente. Le skill implicite potrebbero restare silenti.
+  </div>
+
+  <div class="coex-card">
+    <div class="coex-header"><span class="coex-badge warn">⚠️ TEORICA</span><h4><span class="sk">Spec Kit</span> + <span class="sp">Superpowers</span></h4></div>
+    <p>In teoria operano su livelli diversi: Spec Kit pianifica (slash commands espliciti), Superpowers esegue (skill auto-triggered). A livello di file system nessun conflitto (<code>.specify/</code> vs <code>.claude-plugin/</code>).</p>
+    <p><strong>Ma in pratica:</strong> durante <code>/speckit.implement</code> l'agente segue le istruzioni esplicite di Spec Kit. Le skill di Superpowers (TDD, code review, subagent) competono per l'attenzione nel contesto senza garanzia di attivazione. Possibile conflitto brainstorming vs clarify, e writing-plans vs /speckit.plan.</p>
+    <p><strong>Come verificare:</strong> In sessione pulita chiedi "quali skill di Superpowers hai attive?". Oppure chiedi di implementare qualcosa senza slash commands — se fa brainstorming socratico e TDD, le skill funzionano.</p>
+  </div>
+
+  <div class="coex-card">
+    <div class="coex-header"><span class="coex-badge warn">⚠️ BASSA</span><h4><span class="sk">Spec Kit</span> + <span class="os">OpenSpec</span></h4></div>
+    <p>Competono sullo stesso terreno: produzione di specifiche e piani. Spec Kit produce <code>spec.md</code> + <code>plan.md</code> + <code>tasks.md</code> in <code>.specify/</code>. OpenSpec produce <code>proposal.md</code> + <code>specs/</code> + <code>design.md</code> + <code>tasks.md</code> in <code>openspec/</code>.</p>
+    <p><strong>Problema:</strong> Due set di artefatti paralleli per la stessa feature. L'agente non sa quale segue. Nessuna sincronizzazione tra i due.</p>
+  </div>
+
+  <div class="coex-card">
+    <div class="coex-header"><span class="coex-badge warn">⚠️ TEORICA</span><h4><span class="sp">Superpowers</span> + <span class="os">OpenSpec</span></h4></div>
+    <p>Stessa dinamica di Spec Kit + Superpowers. OpenSpec pianifica, Superpowers dovrebbe eseguire con qualità. Nessun conflitto di directory o branching.</p>
+    <p><strong>Ma:</strong> stessa incertezza sull'attivazione delle skill durante <code>/opsx:apply</code>. La fluidità di OpenSpec potrebbe assorbire meglio eventuali "intrusioni" delle skill.</p>
+  </div>
+
+  <div class="coex-card">
+    <div class="coex-header"><span class="coex-badge bad">❌ SCONSIGLIATO</span><h4>Tutti e tre</h4></div>
+    <p>Conflitto Spec Kit / OpenSpec sugli artefatti + incertezza Superpowers. Troppe istruzioni contrastanti nel contesto dell'agente.</p>
+  </div>
+</section>
+
+<!-- 8. RATING -->
+<section>
+  <h2><span class="num">8</span> Valutazione Comparativa</h2>
+
+  <div class="rating-section">
+    <div class="rating-title">Rigore del processo</div>
+    <div class="rating-desc">Quanto il framework impone fasi obbligatorie e gate di validazione. Alto = non puoi implementare senza spec + plan. Basso = puoi saltare fasi.</div>
+    <div class="rating-bars">
+      <div class="rating-row"><span class="rating-label sk">Spec Kit</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sk" style="width:100%"><span>5/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label sp">Superpowers</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sp" style="width:60%"><span>3/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label os">OpenSpec</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-os" style="width:40%"><span>2/5</span></div></div></div>
+    </div>
+    <div class="rating-detail">Spec Kit: 7 step sequenziali con gate espliciti. Superpowers: skill mandatory ma ordine deciso dall'agente. OpenSpec: "fluid not rigid", nessun phase gate.</div>
+  </div>
+
+  <div class="rating-section">
+    <div class="rating-title">Flessibilità</div>
+    <div class="rating-desc">Libertà di deviare dal percorso standard, saltare fasi, tornare indietro. Alta = workflow adattabile al contesto.</div>
+    <div class="rating-bars">
+      <div class="rating-row"><span class="rating-label sk">Spec Kit</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sk" style="width:40%"><span>2/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label sp">Superpowers</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sp" style="width:60%"><span>3/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label os">OpenSpec</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-os" style="width:100%"><span>5/5</span></div></div></div>
+    </div>
+    <div class="rating-detail">Spec Kit: sequenza fissa, presets per la forma non per l'ordine. Superpowers: skill core (TDD) non-negoziabili. OpenSpec: modifica qualsiasi artefatto, in qualsiasi momento.</div>
+  </div>
+
+  <div class="rating-section">
+    <div class="rating-title">Setup velocity</div>
+    <div class="rating-desc">Tempo dall'installazione al primo utilizzo produttivo. Include dipendenze e complessità configurazione.</div>
+    <div class="rating-bars">
+      <div class="rating-row"><span class="rating-label sk">Spec Kit</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sk" style="width:60%"><span>3/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label sp">Superpowers</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sp" style="width:80%"><span>4/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label os">OpenSpec</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-os" style="width:100%"><span>5/5</span></div></div></div>
+    </div>
+    <div class="rating-detail">Spec Kit: richiede Python 3.11+ e uv. Superpowers: un comando su Claude Code, manuale altrove. OpenSpec: npm install + init, Node.js già presente nella maggior parte dei setup.</div>
+  </div>
+
+  <div class="rating-section">
+    <div class="rating-title">Autonomia dell'agente</div>
+    <div class="rating-desc">Capacità dell'agente di procedere senza intervento umano: prendere decisioni, gestire errori, completare task complessi.</div>
+    <div class="rating-bars">
+      <div class="rating-row"><span class="rating-label sk">Spec Kit</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sk" style="width:60%"><span>3/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label sp">Superpowers</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sp" style="width:100%"><span>5/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label os">OpenSpec</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-os" style="width:60%"><span>3/5</span></div></div></div>
+    </div>
+    <div class="rating-detail">Spec Kit: esecutore guidato dalla task list. Superpowers: subagent-driven, two-stage review, lavora ore in autonomia. OpenSpec: esegue task ma senza subagent o review automatiche.</div>
+  </div>
+
+  <div class="rating-section">
+    <div class="rating-title">TDD enforcement</div>
+    <div class="rating-desc">Imposizione Test-Driven Development: ciclo RED-GREEN-REFACTOR, test prima del codice, sanzioni se l'ordine non è rispettato.</div>
+    <div class="rating-bars">
+      <div class="rating-row"><span class="rating-label sk">Spec Kit</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sk" style="width:40%"><span>2/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label sp">Superpowers</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sp" style="width:100%"><span>5/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label os">OpenSpec</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-os" style="width:40%"><span>2/5</span></div></div></div>
+    </div>
+    <div class="rating-detail">Spec Kit: configurabile nella constitution ma non enforcement automatico. Superpowers: hardcoded, cancella codice scritto prima dei test. OpenSpec: nessuna opinione sul testing.</div>
+  </div>
+
+  <div class="rating-section">
+    <div class="rating-title">Brownfield support</div>
+    <div class="rating-desc">Progettato per lavorare su codebase esistenti: analizzare codice, proporre modifiche incrementali, gestire vincoli emergenti.</div>
+    <div class="rating-bars">
+      <div class="rating-row"><span class="rating-label sk">Spec Kit</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sk" style="width:80%"><span>4/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label sp">Superpowers</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sp" style="width:60%"><span>3/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label os">OpenSpec</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-os" style="width:100%"><span>5/5</span></div></div></div>
+    </div>
+    <div class="rating-detail">Spec Kit: walkthrough su codebase 300k+ LOC ma cerimonia pesante per piccoli change. Superpowers: funziona ma focus su sessioni nuove. OpenSpec: dichiaratamente "built for brownfield".</div>
+  </div>
+
+  <div class="rating-section">
+    <div class="rating-title">Greenfield support</div>
+    <div class="rating-desc">Supporto creazione progetto da zero: architettura, tech stack, struttura iniziale del codice.</div>
+    <div class="rating-bars">
+      <div class="rating-row"><span class="rating-label sk">Spec Kit</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sk" style="width:100%"><span>5/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label sp">Superpowers</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sp" style="width:100%"><span>5/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label os">OpenSpec</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-os" style="width:80%"><span>4/5</span></div></div></div>
+    </div>
+    <div class="rating-detail">Spec Kit: nato per greenfield, constitution + specify + plan ideali. Superpowers: brainstorming socratico perfetto per progetti nuovi. OpenSpec: funziona ma struttura ottimizzata per "aggiunte".</div>
+  </div>
+
+  <div class="rating-section">
+    <div class="rating-title">Enterprise / Audit</div>
+    <div class="rating-desc">Artefatti per compliance, tracciabilità, audit trail, governance. Presets per requisiti regolatori.</div>
+    <div class="rating-bars">
+      <div class="rating-row"><span class="rating-label sk">Spec Kit</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sk" style="width:100%"><span>5/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label sp">Superpowers</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sp" style="width:40%"><span>2/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label os">OpenSpec</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-os" style="width:60%"><span>3/5</span></div></div></div>
+    </div>
+    <div class="rating-detail">Spec Kit: constitution, presets compliance, checklist di qualità, ogni decisione tracciata. Superpowers: no artefatti formali di governance. OpenSpec: artefatti strutturati ma mancano presets compliance.</div>
+  </div>
+
+  <div class="rating-section">
+    <div class="rating-title">Estensibilità</div>
+    <div class="rating-desc">Facilità di aggiungere funzionalità, personalizzare il workflow, adattare il framework senza fork.</div>
+    <div class="rating-bars">
+      <div class="rating-row"><span class="rating-label sk">Spec Kit</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sk" style="width:100%"><span>5/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label sp">Superpowers</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sp" style="width:60%"><span>3/5</span></div></div></div>
+      <div class="rating-row"><span class="rating-label os">OpenSpec</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-os" style="width:60%"><span>3/5</span></div></div></div>
+    </div>
+    <div class="rating-detail">Spec Kit: 3 livelli (extensions, presets, overrides) con risoluzione stratificata e marketplace. Superpowers: contribuisci skill via PR, no marketplace terze parti. OpenSpec: profili configurabili, no sistema extension.</div>
+  </div>
+
+  <div class="rating-section">
+    <div class="rating-title">Maturità</div>
+    <div class="rating-desc">Numero release, stabilità API, solidità del progetto.</div>
+    <div class="rating-bars">
+      <div class="rating-row"><span class="rating-label sk">Spec Kit</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sk" style="width:80%"><span>118 rel</span></div></div></div>
+      <div class="rating-row"><span class="rating-label sp">Superpowers</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-sp" style="width:30%"><span>4 rel</span></div></div></div>
+      <div class="rating-row"><span class="rating-label os">OpenSpec</span><div class="rating-bar-bg"><div class="rating-bar-fill bar-os" style="width:60%"><span>34 rel</span></div></div></div>
+    </div>
+    <div class="rating-detail">Spec Kit: 118 release ma ancora v0.x (API non stabile). Superpowers: 4 release, v5.0.7, progetto giovane. OpenSpec: 34 release, v1.2.0, API considerata stabile (superato v1.0), pubblicato su npm.</div>
+  </div>
+</section>
+
+<footer style="text-align:center; padding-top:2rem; border-top:1px solid var(--border); color:var(--text-dim); font-size:0.8rem;">
+  Comparativa generata ad aprile 2026 — Dati da README dei repository ufficiali
+</footer>
+
+</body>
+</html>
