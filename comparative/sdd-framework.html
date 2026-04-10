@@ -129,10 +129,44 @@ tbody tr:last-child td{border-bottom:none}
 <section id="identity">
 <h2><span class="n">1</span> Identità e Filosofia</h2>
 <div class="g4">
-  <div class="cd"><div class="cd-h"><span class="dot" style="background:var(--sk)"></span><h4>Spec Kit</h4></div><span class="tg tg-sk">Python/uv</span><span class="tg tg-sk">GitHub Official</span><p><strong>Spec-Driven Development</strong> — le specifiche diventano eseguibili. Fasi rigide: constitution → specify → plan → tasks → implement. Artefatti Markdown in <code>.specify/</code>.</p></div>
-  <div class="cd"><div class="cd-h"><span class="dot" style="background:var(--sp)"></span><h4>Superpowers</h4></div><span class="tg tg-sp">Shell/JS</span><span class="tg tg-sp">Jesse Vincent</span><p><strong>Agentic Skills Framework</strong> — skill composabili auto-triggered dall'agente. Zero ceremony. Enfasi fortissima su TDD e YAGNI. L'agente rileva il contesto e agisce.</p></div>
-  <div class="cd"><div class="cd-h"><span class="dot" style="background:var(--os)"></span><h4>OpenSpec</h4></div><span class="tg tg-os">TypeScript/npm</span><span class="tg tg-os">Fission AI</span><p><strong>Fluid, not rigid.</strong> Spec-driven ma anti-cerimoniale. Ogni change ha la sua cartella. Nessun phase gate. Brownfield-first.</p></div>
-  <div class="cd"><div class="cd-h"><span class="dot" style="background:var(--bm)"></span><h4>B-MAD</h4></div><span class="tg tg-bm">Node.js/npm</span><span class="tg tg-bm">BMad Code</span><p><strong>Agentic Agile Driven Development</strong> — simula un team agile completo con agenti specializzati (Analyst, PM, Architect, Dev, QA). Scale-adaptive: si adatta da bug fix a enterprise. 19+ agenti, 50+ workflow, moduli espandibili.</p></div>
+
+  <div class="cd" style="border-top:3px solid var(--sk)">
+    <div class="cd-h"><span class="dot" style="background:var(--sk)"></span><h4>Spec Kit</h4></div>
+    <div style="margin-bottom:.5rem"><span class="tg tg-sk">Python/uv</span><span class="tg tg-sk">GitHub Official</span><span class="tg tg-sk">MIT</span><span class="tg tg-y">⭐ 81.4k</span></div>
+    <p><a href="https://github.com/github/spec-kit" target="_blank">github.com/github/spec-kit</a></p>
+    <p><strong>Filosofia: Spec-Driven Development</strong> — le specifiche non sono documentazione usa-e-getta, diventano artefatti eseguibili che guidano direttamente l'implementazione. Il codice è l'output della spec, non il contrario.</p>
+    <p><strong>Cosa fa in pratica:</strong> Una CLI (<code>specify</code>) che scaffolda il tuo progetto con template, script e comandi per il tuo coding agent. Ti guida attraverso 7 fasi sequenziali: scrivi una constitution (principi fondamentali del progetto), poi specifichi COSA vuoi costruire senza pensare al tech stack, poi chiarisci le ambiguità con domande strutturate, poi crei il piano tecnico, fai un consistency check, generi i task, e infine implementi. Ogni fase produce file Markdown versionati in <code>.specify/</code> — hai sempre una traccia completa di cosa è stato deciso e perché.</p>
+    <p><strong>Differenziatore chiave:</strong> Il sistema di <strong>extensions e presets</strong> stackabili permette di adattare l'intero workflow a metodologie diverse (Agile, Kanban, DDD, compliance regolamentare) senza toccare il core. Supporta ufficialmente 25+ coding agent.</p>
+  </div>
+
+  <div class="cd" style="border-top:3px solid var(--sp)">
+    <div class="cd-h"><span class="dot" style="background:var(--sp)"></span><h4>Superpowers</h4></div>
+    <div style="margin-bottom:.5rem"><span class="tg tg-sp">Shell/JS</span><span class="tg tg-sp">Jesse Vincent (Prime Radiant)</span><span class="tg tg-sp">MIT</span><span class="tg tg-y">⭐ 137k</span></div>
+    <p><a href="https://github.com/obra/superpowers" target="_blank">github.com/obra/superpowers</a></p>
+    <p><strong>Filosofia: Agentic Skills Framework</strong> — un insieme di "skill" composabili che il tuo coding agent attiva automaticamente in base a quello che stai facendo. Non devi invocare comandi: l'agente rileva il contesto ("stai per scrivere codice", "c'è un bug", "hai finito un task") e attiva la skill giusta da solo.</p>
+    <p><strong>Cosa fa in pratica:</strong> Installi un plugin (su Claude Code via marketplace, su altri agent via config file) che inietta istruzioni comportamentali nel contesto dell'agente. Da quel momento, quando inizi a parlare di cosa costruire l'agente parte con brainstorming socratico. Quando approvi il design, crea un worktree git isolato. Quando dici "go", spawna subagent per ogni task con review automatica a 2 stadi (aderenza alla spec + qualità codice). Durante tutto il processo impone TDD: se scrivi codice prima dei test, lo cancella e ricomincia.</p>
+    <p><strong>Differenziatore chiave:</strong> <strong>Subagent-driven development</strong> e <strong>TDD hardcoded</strong>. L'agente può lavorare autonomamente per ore senza deviare dal piano. Nessun altro framework offre questo livello di autonomia. Include anche skill di debugging strutturato a 4 fasi (root cause tracing, defense-in-depth) che nessun altro copre.</p>
+    <p><strong>Nota importante:</strong> Le skill non sono un runtime — sono prompt iniettati nel contesto. L'"auto-trigger" significa che l'agente <em>dovrebbe</em> seguirle, ma non c'è un meccanismo tecnico che lo garantisca. Verificabile solo dal comportamento dell'agente.</p>
+  </div>
+
+  <div class="cd" style="border-top:3px solid var(--os)">
+    <div class="cd-h"><span class="dot" style="background:var(--os)"></span><h4>OpenSpec</h4></div>
+    <div style="margin-bottom:.5rem"><span class="tg tg-os">TypeScript/npm</span><span class="tg tg-os">Fission AI</span><span class="tg tg-os">MIT</span><span class="tg tg-y">⭐ 37.7k</span></div>
+    <p><a href="https://github.com/Fission-AI/OpenSpec" target="_blank">github.com/Fission-AI/OpenSpec</a></p>
+    <p><strong>Filosofia: "Fluid, not rigid. Iterative, not waterfall. Easy, not complex. Built for brownfield, not just greenfield."</strong> — Spec-driven ma dichiaratamente anti-cerimoniale. Puoi aggiornare qualsiasi artefatto in qualsiasi momento senza phase gate.</p>
+    <p><strong>Cosa fa in pratica:</strong> Una CLI Node.js (<code>openspec</code>) che dopo <code>openspec init</code> ti dà slash commands per il tuo agent. Il comando centrale è <code>/opsx:propose "nome-feature"</code>: in un colpo genera una cartella <code>openspec/changes/nome-feature/</code> con 4 artefatti (proposal.md, specs/, design.md, tasks.md). Poi implementi con <code>/opsx:apply</code>, verifichi con <code>/opsx:verify</code>, e archivi con <code>/opsx:archive</code>. In qualsiasi momento puoi tornare indietro e modificare qualsiasi file senza ricominciare il workflow.</p>
+    <p><strong>Differenziatore chiave:</strong> <strong>Velocità e fluidità</strong>. Da "ho un'idea" a "ho un piano implementabile con 4 artefatti" in un singolo comando. Progettato esplicitamente per il <strong>brownfield</strong>: la struttura per-change isola ogni modifica e permette di scoprire vincoli della codebase durante l'implementazione senza dover rifare la spec. Il profilo expanded aggiunge comandi avanzati come <code>/opsx:ff</code> (salta al prossimo task incompleto), <code>/opsx:onboard</code> (genera overview per nuovi contributor), <code>/opsx:bulk-archive</code>.</p>
+  </div>
+
+  <div class="cd" style="border-top:3px solid var(--bm)">
+    <div class="cd-h"><span class="dot" style="background:var(--bm)"></span><h4>B-MAD</h4></div>
+    <div style="margin-bottom:.5rem"><span class="tg tg-bm">Node.js 22+/npm</span><span class="tg tg-bm">BMad Code LLC</span><span class="tg tg-bm">MIT</span><span class="tg tg-y">⭐ 42.1k</span></div>
+    <p><a href="https://github.com/bmad-code-org/BMAD-METHOD" target="_blank">github.com/bmad-code-org/BMAD-METHOD</a> · <a href="https://docs.bmad-method.org/" target="_blank">docs.bmad-method.org</a></p>
+    <p><strong>Filosofia: Agentic Agile Driven Development</strong> — "Build More Architect Dreams". Invece di un singolo agente che fa tutto, B-MAD simula un intero team agile con agenti AI specializzati: ognuno ha una persona (personalità, principi, stile), comandi propri, e un ruolo preciso. L'idea è che un Analyst agent elicita i requisiti meglio di un agente generico, e un Architect agent progetta meglio se è "solo" un architetto.</p>
+    <p><strong>Cosa fa in pratica:</strong> Installi con <code>npx bmad-method install</code> (interattivo: scegli moduli e agent). Il framework carica 19+ agenti specializzati e 50+ workflow organizzati in un ecosistema modulare: BMM (software development, 8 agenti, 30+ workflow), Game Dev Studio (4 agenti, 20+ workflow), BMad Builder (per creare i tuoi moduli), Creative Intelligence Suite (brainstorming creativo). Il planning è <strong>scale-adaptive su 3 track</strong>: Quick (solo tech-spec, per bug fix), BMad (PRD + Architecture + UX, per feature), Enterprise (tutto + Security/DevOps/Test strategy). Lo skill <code>bmad-help</code> ti guida in qualsiasi momento.</p>
+    <p><strong>Differenziatore chiave:</strong> <strong>Multi-agent con ruoli separati</strong> e <strong>scale-adaptive intelligence</strong>. È l'unico che adatta automaticamente la profondità del planning alla complessità del task. È anche l'unico che va <strong>oltre il software</strong>: game development, creative writing, business strategy, wellness. L'<strong>adversarial review</strong> (verifica deliberatamente critica cross-agente) è unica nel panorama. La curva di apprendimento è la più ripida dei quattro, ma è anche il framework più ricco e completo.</p>
+  </div>
+
 </div>
 </section>
 
@@ -278,44 +312,128 @@ tbody tr:last-child td{border-bottom:none}
 <section id="usecases">
 <h2><span class="n">8</span> Casi d'Uso: Quale Scegliere e Perché</h2>
 
-<div class="uc"><h4>🆕 Nuovo progetto greenfield con architettura complessa</h4>
-<p class="rec"><span class="sk">→ Spec Kit</span> oppure <span class="bm">→ B-MAD (Enterprise track)</span></p>
-<p><strong>Perché Spec Kit:</strong> La separazione netta "cosa" (specify) vs "come" (plan) ti forza a chiarire i requisiti senza farti influenzare dalla tecnologia. <code>/speckit.clarify</code> elimina ambiguità prima di scrivere una riga. La constitution governa tutte le decisioni. Ideale se vuoi controllo totale e audit trail.</p>
-<p><strong>Perché B-MAD:</strong> Se il progetto è davvero complesso (multi-repo, team distribuito, requisiti security), l'Enterprise track aggiunge Security/DevOps/Test strategy. Gli agenti specializzati (Analyst, Architect) producono artefatti più ricchi di un singolo agente guidato da slash commands. L'adversarial review cattura problemi architetturali.</p>
-<p><strong>Quando NON questi:</strong> Se è un prototipo rapido, entrambi sono overkill. Usa OpenSpec o nessun framework.</p></div>
+<div class="co info" style="margin-bottom:1.2rem"><strong>Come leggere questa sezione:</strong> Ogni scenario è un momento concreto del tuo lavoro quotidiano. Per ognuno ti dico quale tool usare, perché quello e non gli altri, e cosa perdi se scegli diversamente. In fondo trovi il decision tree riassuntivo.</div>
 
-<div class="uc"><h4>🔧 Feature su codebase esistente (brownfield)</h4>
-<p class="rec"><span class="os">→ OpenSpec</span> <span class="combo">oppure OpenSpec + B-MAD (Quick track) in alternanza</span></p>
-<p><strong>Perché OpenSpec:</strong> Esplicitamente brownfield-first. La struttura per-change isola ogni modifica. La fluidità permette di scoprire vincoli durante l'implementazione e aggiornare la spec senza ricominciare. Per change piccole e medie è la scelta più efficiente.</p>
-<p><strong>Quando aggiungere B-MAD:</strong> Se la feature brownfield è complessa (cambia architettura, tocca molti moduli), il Quick track di B-MAD produce un tech-spec veloce senza tutta la cerimonia. Usali in alternanza: OpenSpec per change normali, B-MAD Quick per quelle complesse.</p></div>
+<!-- UC1 -->
+<div class="uc" style="border-left:3px solid var(--sk)">
+<h4>Scenario 1 — Devi costruire un nuovo servizio da zero (greenfield) e i requisiti sono vaghi</h4>
+<p class="rec"><span class="sk">→ Spec Kit</span></p>
+<p><strong>Situazione tipica:</strong> Il PM ti dice "serve un servizio che gestisce le prenotazioni". Non sai ancora quante API servono, quale DB, come gestire le notifiche. I requisiti sono incompleti e ambigui.</p>
+<p><strong>Perché Spec Kit:</strong> La sequenza <code>/speckit.specify</code> (scrivi COSA senza pensare al tech) → <code>/speckit.clarify</code> (l'agente ti fa domande fino a quando ogni ambiguità è risolta) → <code>/speckit.plan</code> (ORA parli di tech stack) è progettata esattamente per questo. La fase di clarify è il suo vero superpotere: ti forza a decidere cose che altrimenti scopriresti a metà implementazione (es: "cosa succede se un utente prenota due volte?" — se non te lo chiedi ora, lo scopri dopo con un bug).</p>
+<p><strong>Perché NON gli altri:</strong></p>
+<p>• <span class="sp">Superpowers</span> — fa brainstorming, ma non produce artefatti formali. Se tra un mese devi capire perché hai scelto Postgres invece di DynamoDB, non hai traccia.</p>
+<p>• <span class="os">OpenSpec</span> — genera tutto con un comando, ma non ti forza a chiarire. Se i requisiti sono vaghi, <code>/opsx:propose</code> produce spec vaghe. Garbage in, garbage out.</p>
+<p>• <span class="bm">B-MAD</span> — funziona bene (l'Analyst agent elicita i requisiti), ma la curva di apprendimento è ripida. Se non hai mai usato B-MAD, imparare 19 agenti mentre cerchi di partire un progetto nuovo rallenta tutto.</p>
+</div>
 
-<div class="uc"><h4>⚡ Sessione di sviluppo intensiva con Claude Code</h4>
+<!-- UC2 -->
+<div class="uc" style="border-left:3px solid var(--os)">
+<h4>Scenario 2 — Devi aggiungere una feature a un progetto esistente (brownfield quotidiano)</h4>
+<p class="rec"><span class="os">→ OpenSpec</span></p>
+<p><strong>Situazione tipica:</strong> Hai una codebase che funziona. Devi aggiungere dark mode, un nuovo endpoint API, o integrare un servizio esterno. Conosci già il codice.</p>
+<p><strong>Perché OpenSpec:</strong> Fai <code>/opsx:propose "add-dark-mode"</code> e in 30 secondi hai proposal, spec, design e task nella cartella <code>openspec/changes/add-dark-mode/</code>. Mentre implementi scopri che il CSS è più incasinato del previsto? Aggiorni il design.md senza ricominciare. Nessun phase gate ti blocca. Finito? <code>/opsx:archive</code> e la change è archiviata pulita.</p>
+<p><strong>Perché NON gli altri:</strong></p>
+<p>• <span class="sk">Spec Kit</span> — per aggiungere dark mode devi fare constitution → specify → clarify → plan → analyze → tasks → implement. 7 step per una feature che sai già come fare. È overkill.</p>
+<p>• <span class="sp">Superpowers</span> — non produce artefatti di specifica. Se lavori in team e un collega deve capire cosa hai fatto, non c'è un <code>proposal.md</code> da leggere.</p>
+<p>• <span class="bm">B-MAD</span> — puoi usare il Quick track, ma devi comunque caricare un agente, capire quale track attivare. Per un task che sai già fare, è overhead.</p>
+</div>
+
+<!-- UC3 -->
+<div class="uc" style="border-left:3px solid var(--sp)">
+<h4>Scenario 3 — Hai 3 ore di focus time e vuoi che Claude Code implementi senza fermarti</h4>
 <p class="rec"><span class="sp">→ Superpowers</span></p>
-<p><strong>Perché:</strong> Il subagent-driven development permette a Claude di lavorare per ore in autonomia. Le skill auto-triggered eliminano il context-switching. Il TDD hardcoded garantisce codice testato. Nessun altro framework offre questo livello di autonomia dell'agente.</p>
-<p><strong>Limite:</strong> Funziona al meglio solo su Claude Code (plugin marketplace nativo). Su altri agent l'attivazione delle skill non è garantita.</p></div>
+<p><strong>Situazione tipica:</strong> Hai già chiaro cosa costruire (magari hai già una spec scritta a mano). Vuoi che l'agente lavori in autonomia: scriva test, implementi, faccia review, e vada avanti senza chiederti conferma ogni 2 minuti.</p>
+<p><strong>Perché Superpowers:</strong> L'agente spawna un subagent per ogni task, fa review a 2 stadi (aderenza alla spec + qualità codice), e se qualcosa non va lo blocca da solo senza aspettarti. Il TDD hardcoded garantisce che ogni pezzo di codice abbia il suo test. Puoi letteralmente andare a fare altro.</p>
+<p><strong>Perché NON gli altri:</strong></p>
+<p>• <span class="sk">Spec Kit</span> — <code>/speckit.implement</code> esegue i task in sequenza ma non ha subagent, non ha review automatica tra task, non impone TDD. È un esecutore, non un agente autonomo.</p>
+<p>• <span class="os">OpenSpec</span> — <code>/opsx:apply</code> è simile: esegue task ma senza intelligenza di revisione autonoma.</p>
+<p>• <span class="bm">B-MAD</span> — ha multi-agent con handoff, ma richiede checkpoint umano tra le fasi. Non è pensato per "lascio lavorare l'agente 3 ore".</p>
+<p><strong>Attenzione:</strong> Funziona al meglio SOLO su Claude Code (plugin nativo). Su opencode/Copilot le skill sono prompt nel contesto e non c'è garanzia che si attivino. Verifica dal comportamento.</p>
+</div>
 
-<div class="uc"><h4>🏢 Progetto enterprise con compliance / audit</h4>
-<p class="rec"><span class="sk">→ Spec Kit</span> oppure <span class="bm">→ B-MAD (Enterprise track)</span></p>
-<p><strong>Perché Spec Kit:</strong> Constitution + presets compliance + checklist di qualità. Ogni decisione tracciata in Markdown versionato. Il sistema di presets permette di aggiungere gate regolatori (V-Model, traceability). 118 release, backed da GitHub.</p>
-<p><strong>Perché B-MAD:</strong> L'Enterprise track aggiunge nativamente Security e DevOps strategy. Gli agenti specializzati producono artefatti che mappano ruoli enterprise reali (BA → PM → Architect → Dev → QA). L'adversarial review è un differenziatore forte per contesti regolati.</p></div>
+<!-- UC4 -->
+<div class="uc" style="border-left:3px solid var(--bm)">
+<h4>Scenario 4 — Progetto complesso con molti stakeholder e requisiti articolati</h4>
+<p class="rec"><span class="bm">→ B-MAD (BMad o Enterprise track)</span></p>
+<p><strong>Situazione tipica:</strong> Stai costruendo una piattaforma con frontend, backend, API, database, e ci sono requisiti di sicurezza, performance, UX. Più persone devono capire le decisioni architetturali. Servono PRD, user stories, architecture doc.</p>
+<p><strong>Perché B-MAD:</strong> Ogni ruolo del tuo team reale ha un agente AI corrispondente. L'Analyst elicita i requisiti con tecniche avanzate. Il PM genera il PRD con user stories. L'Architect progetta l'architettura. Il Dev implementa story per story. Il QA valida con adversarial review. Ogni agente produce artefatti che le persone reali (product owner, tech lead) possono leggere e validare.</p>
+<p>Il vero differenziatore è il <strong>scale-adaptive</strong>: se hai solo bisogno di un tech-spec → Quick track. Se serve il pacchetto completo → BMad track. Se ci sono vincoli enterprise (security, compliance, DevOps) → Enterprise track. Nessun altro framework ti dà questa granularità di scelta.</p>
+<p><strong>Perché NON gli altri:</strong></p>
+<p>• <span class="sk">Spec Kit</span> — produce spec e plan buoni, ma con un singolo agente che fa tutto. Non c'è separazione dei ruoli. L'Architect e il PM sono lo stesso agente → rischio di compromessi non espliciti.</p>
+<p>• <span class="sp">Superpowers</span> — eccelle nell'esecuzione ma non nella pianificazione strutturata. Nessun PRD, nessun architecture doc formale.</p>
+<p>• <span class="os">OpenSpec</span> — troppo leggero per questo livello di complessità. Un <code>/opsx:propose</code> non produce un architecture doc che un tech lead può revieware.</p>
+</div>
 
-<div class="uc"><h4>🐛 Bug fix o task molto piccolo</h4>
+<!-- UC5 -->
+<div class="uc" style="border-left:3px solid var(--bm)">
+<h4>Scenario 5 — Bug fix o task piccolo e chiaro</h4>
 <p class="rec"><span class="bm">→ B-MAD (Quick track)</span> oppure <strong>nessun framework</strong></p>
-<p><strong>Perché B-MAD Quick:</strong> È l'unico con un track esplicito per task piccoli. Genera solo un tech-spec, niente PRD/architettura/UX. Minima cerimonia utile.</p>
-<p><strong>Quando nessuno:</strong> Per un bug fix di 5 minuti, qualsiasi framework è overhead. Fai il fix, scrivi il test, committa.</p></div>
+<p><strong>Situazione tipica:</strong> "Il bottone di logout non funziona su mobile" o "aggiungi un campo email alla form di contatto". Sai già cosa fare, serve solo un minimo di struttura per non dimenticare l'edge case.</p>
+<p><strong>Perché B-MAD Quick:</strong> È l'unico che ha un track esplicito per task piccoli. Genera un tech-spec minimale (niente PRD, niente architettura) e passa al codice. È la "cerimonia giusta" per il task giusto.</p>
+<p><strong>Perché nessun framework:</strong> Se il bug è "typo nel testo del bottone", qualsiasi framework è overhead. Fixa, testa, committa.</p>
+<p><strong>Perché NON gli altri:</strong></p>
+<p>• <span class="sk">Spec Kit</span> — 7 step per un bug fix? No.</p>
+<p>• <span class="sp">Superpowers</span> — potrebbe partire con brainstorming socratico su un typo. Inutile.</p>
+<p>• <span class="os">OpenSpec</span> — <code>/opsx:propose</code> è veloce ma genera comunque 4 file (proposal, spec, design, task) per un bug fix di 5 righe.</p>
+</div>
 
-<div class="uc"><h4>🎮 Progetto non-software (game dev, creative, strategy)</h4>
-<p class="rec"><span class="bm">→ B-MAD</span> (unica opzione)</p>
-<p><strong>Perché:</strong> È l'unico dei quattro pensato per domini oltre il software. Il modulo Game Dev Studio ha 4 agenti dedicati e 20+ workflow per game development. Il Creative Intelligence Suite copre brainstorming creativo. Gli altri tre sono esclusivamente per software development.</p></div>
-
-<div class="uc"><h4>🧪 Prototipo rapido / spike</h4>
-<p class="rec"><span class="os">→ OpenSpec</span> oppure <strong>nessun framework</strong></p>
-<p><strong>Perché OpenSpec:</strong> Un singolo <code>/opsx:propose</code> ti dà struttura minima senza cerimonia. Se lo spike diventa feature, hai già gli artefatti. <code>/opsx:archive</code> archivia gli spike scartati.</p>
-<p><strong>Quando nessuno:</strong> Se lo spike è "vediamo se funziona in 30 minuti", nessun framework serve.</p></div>
-
-<div class="uc"><h4>🔍 Debugging complesso in produzione</h4>
+<!-- UC6 -->
+<div class="uc" style="border-left:3px solid var(--sp)">
+<h4>Scenario 6 — Hai un bug complesso in produzione e non capisci la root cause</h4>
 <p class="rec"><span class="sp">→ Superpowers</span></p>
-<p><strong>Perché:</strong> Unico con skill di debugging strutturato: 4 fasi con root cause tracing, defense-in-depth, condition-based waiting. Gli altri non coprono esplicitamente il debugging come workflow.</p></div>
+<p><strong>Situazione tipica:</strong> Un endpoint ritorna 500 in modo intermittente. Hai guardato i log, hai provato a riprodurre, ma non riesci a isolare la causa.</p>
+<p><strong>Perché Superpowers:</strong> È l'unico con una skill di debugging strutturato a 4 fasi: (1) raccolta evidenze, (2) formulazione ipotesi, (3) verifica sistematica, (4) fix con defense-in-depth. Include root cause tracing e condition-based waiting (aspetta che la condizione si verifichi invece di fare sleep random). Gli altri framework non hanno nulla di equivalente.</p>
+<p><strong>Perché NON gli altri:</strong> Spec Kit, OpenSpec e B-MAD non coprono il debugging come workflow. Al massimo dici all'agente "fixa questo bug" e speri che funzioni. Superpowers ha un processo.</p>
+</div>
+
+<!-- UC7 -->
+<div class="uc" style="border-left:3px solid var(--sk)">
+<h4>Scenario 7 — Devi dimostrare compliance o tracciabilità delle decisioni</h4>
+<p class="rec"><span class="sk">→ Spec Kit</span> con presets compliance</p>
+<p><strong>Situazione tipica:</strong> Audit, certificazioni, regolatorio. Qualcuno ti chiede "perché avete scelto questa architettura?" e devi poter rispondere con un documento.</p>
+<p><strong>Perché Spec Kit:</strong> Constitution (principi fondamentali) → Spec (requisiti) → Plan (decisioni tecniche) → Tasks (cosa è stato implementato) — tutto versionato in Git. I presets possono aggiungere gate regolatori (V-Model, traceability). La checklist <code>/speckit.checklist</code> valida i requisiti come "unit test per l'inglese".</p>
+<p><strong>B-MAD come alternativa:</strong> L'Enterprise track con adversarial review è valido, ma Spec Kit ha un ecosistema di presets compliance più maturo e un'organizzazione (GitHub) dietro.</p>
+</div>
+
+<!-- UC8 -->
+<div class="uc" style="border-left:3px solid var(--os)">
+<h4>Scenario 8 — Lavori da solo su side project e vuoi struttura minima</h4>
+<p class="rec"><span class="os">→ OpenSpec</span></p>
+<p><strong>Situazione tipica:</strong> Side project personale, nessun team, nessun compliance. Vuoi evitare il caos del "vibe coding" ma non vuoi passare un'ora a configurare framework.</p>
+<p><strong>Perché OpenSpec:</strong> <code>npm install -g @fission-ai/openspec && openspec init</code> e sei operativo. 3 comandi da sapere (<code>propose</code>, <code>apply</code>, <code>archive</code>). Quando il side project cresce, hai già gli artefatti organizzati per feature.</p>
+<p><strong>Perché NON gli altri:</strong></p>
+<p>• <span class="sk">Spec Kit</span> — richiede Python/uv, constitution, 7 step. Per un side project sabato pomeriggio è troppo.</p>
+<p>• <span class="sp">Superpowers</span> — buono per l'esecuzione ma non ti dà artefatti organizzati da riprendere lunedì.</p>
+<p>• <span class="bm">B-MAD</span> — 19 agenti per un to-do app? No.</p>
+</div>
+
+<!-- UC9 -->
+<div class="uc" style="border-left:3px solid var(--bm)">
+<h4>Scenario 9 — Progetto non-software (game dev, brainstorming creativo, business strategy)</h4>
+<p class="rec"><span class="bm">→ B-MAD</span> (unica opzione)</p>
+<p><strong>Perché:</strong> È l'unico dei quattro che va oltre il software. Game Dev Studio (4 agenti, 20+ workflow), Creative Intelligence Suite, BMad Builder. Gli altri tre sono esclusivamente software development.</p>
+</div>
+
+<!-- DECISION TREE -->
+<div style="margin-top:1.5rem;padding:1.25rem;background:var(--bg2);border:1px solid var(--brd);border-radius:8px">
+<h4 style="margin-bottom:.8rem">🌳 Decision Tree Rapido</h4>
+<div style="font-size:.84rem;color:var(--tx2);line-height:2">
+<p><strong>Il task è un bug fix di 5 minuti?</strong> → Nessun framework, oppure <span class="bm">B-MAD Quick</span></p>
+<p><strong>Stai aggiungendo una feature a codice esistente?</strong></p>
+<p style="padding-left:1.2rem">Feature chiara e piccola/media → <span class="os">OpenSpec</span></p>
+<p style="padding-left:1.2rem">Feature complessa che cambia l'architettura → <span class="bm">B-MAD (BMad track)</span> oppure <span class="sk">Spec Kit</span></p>
+<p><strong>Stai partendo un progetto nuovo da zero?</strong></p>
+<p style="padding-left:1.2rem">Requisiti vaghi, devi chiarirli → <span class="sk">Spec Kit</span> (la fase clarify è decisiva)</p>
+<p style="padding-left:1.2rem">Progetto complesso con molti ruoli → <span class="bm">B-MAD (Enterprise track)</span></p>
+<p style="padding-left:1.2rem">Prototipo rapido → <span class="os">OpenSpec</span> o nessun framework</p>
+<p><strong>Vuoi che l'agente lavori in autonomia per ore?</strong> → <span class="sp">Superpowers</span> (solo Claude Code)</p>
+<p><strong>Devi fare debugging di un issue complesso?</strong> → <span class="sp">Superpowers</span></p>
+<p><strong>Servono audit/compliance/tracciabilità?</strong> → <span class="sk">Spec Kit</span> con presets</p>
+<p><strong>Non è software?</strong> → <span class="bm">B-MAD</span></p>
+<p><strong>Side project personale, vuoi struttura minima?</strong> → <span class="os">OpenSpec</span></p>
+</div>
+</div>
+
 </section>
 
 <!-- 9 RATINGS -->
