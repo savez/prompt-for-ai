@@ -106,7 +106,6 @@ tbody tr:last-child td{border-bottom:none}
   <a href="#excels">Eccellono in</a>
   <a href="#workflow">Workflow</a>
   <a href="#agents">Agent Support</a>
-  <a href="#planning">Planning</a>
   <a href="#coexistence">Coesistenza</a>
   <a href="#usecases">Casi d'Uso</a>
   <a href="#ratings">Valutazione</a>
@@ -145,7 +144,7 @@ tbody tr:last-child td{border-bottom:none}
     <p><a href="https://github.com/obra/superpowers" target="_blank">github.com/obra/superpowers</a></p>
     <p><strong>Filosofia: Agentic Skills Framework</strong> — un insieme di "skill" composabili che il tuo coding agent attiva automaticamente in base a quello che stai facendo. Non devi invocare comandi: l'agente rileva il contesto ("stai per scrivere codice", "c'è un bug", "hai finito un task") e attiva la skill giusta da solo.</p>
     <p><strong>Cosa fa in pratica:</strong> Installi un plugin (su Claude Code via marketplace, su altri agent via config file) che inietta istruzioni comportamentali nel contesto dell'agente. Da quel momento, quando inizi a parlare di cosa costruire l'agente parte con brainstorming socratico. Quando approvi il design, crea un worktree git isolato. Quando dici "go", spawna subagent per ogni task con review automatica a 2 stadi (aderenza alla spec + qualità codice). Durante tutto il processo impone TDD: se scrivi codice prima dei test, lo cancella e ricomincia.</p>
-    <p><strong>Differenziatore chiave:</strong> <strong>Subagent-driven development</strong> e <strong>TDD hardcoded</strong>. L'agente può lavorare autonomamente per ore senza deviare dal piano. Nessun altro framework offre questo livello di autonomia. Include anche skill di debugging strutturato a 4 fasi (root cause tracing, defense-in-depth) che nessun altro copre.</p>
+    <p><strong>Differenziatore chiave:</strong> <strong>Subagent-driven development</strong> e <strong>TDD imposto via istruzioni</strong>. L'agente può lavorare autonomamente per ore senza deviare dal piano. Nessun altro framework offre questo livello di autonomia. Include anche skill di debugging strutturato a 4 fasi (root cause tracing, defense-in-depth) che nessun altro copre.</p>
     <p><strong>Nota importante:</strong> Le skill non sono un runtime — sono prompt iniettati nel contesto. L'"auto-trigger" significa che l'agente <em>dovrebbe</em> seguirle, ma non c'è un meccanismo tecnico che lo garantisca. Verificabile solo dal comportamento dell'agente.</p>
   </div>
 
@@ -160,7 +159,7 @@ tbody tr:last-child td{border-bottom:none}
 
   <div class="cd" style="border-top:3px solid var(--bm)">
     <div class="cd-h"><span class="dot" style="background:var(--bm)"></span><h4>B-MAD</h4></div>
-    <div style="margin-bottom:.5rem"><span class="tg tg-bm">Node.js 22+/npm</span><span class="tg tg-bm">BMad Code LLC</span><span class="tg tg-bm">MIT</span><span class="tg tg-y">⭐ 42.1k</span></div>
+    <div style="margin-bottom:.5rem"><span class="tg tg-bm">Node.js 20+/npm</span><span class="tg tg-bm">BMad Code LLC</span><span class="tg tg-bm">MIT</span><span class="tg tg-y">⭐ 42.1k</span></div>
     <p><a href="https://github.com/bmad-code-org/BMAD-METHOD" target="_blank">github.com/bmad-code-org/BMAD-METHOD</a> · <a href="https://docs.bmad-method.org/" target="_blank">docs.bmad-method.org</a></p>
     <p><strong>Filosofia: Agentic Agile Driven Development</strong> — "Build More Architect Dreams". Invece di un singolo agente che fa tutto, B-MAD simula un intero team agile con agenti AI specializzati: ognuno ha una persona (personalità, principi, stile), comandi propri, e un ruolo preciso. L'idea è che un Analyst agent elicita i requisiti meglio di un agente generico, e un Architect agent progetta meglio se è "solo" un architetto.</p>
     <p><strong>Cosa fa in pratica:</strong> Installi con <code>npx bmad-method install</code> (interattivo: scegli moduli e agent). Il framework carica 19+ agenti specializzati e 50+ workflow organizzati in un ecosistema modulare: BMM (software development, 8 agenti, 30+ workflow), Game Dev Studio (4 agenti, 20+ workflow), BMad Builder (per creare i tuoi moduli), Creative Intelligence Suite (brainstorming creativo). Il planning è <strong>scale-adaptive su 3 track</strong>: Quick (solo tech-spec, per bug fix), BMad (PRD + Architecture + UX, per feature), Enterprise (tutto + Security/DevOps/Test strategy). Lo skill <code>bmad-help</code> ti guida in qualsiasi momento.</p>
@@ -202,7 +201,7 @@ tbody tr:last-child td{border-bottom:none}
   <ul><li><strong>Rigore del processo</strong> — 7 step con gate espliciti</li><li><strong>Clarification workflow</strong> — <code>/speckit.clarify</code> rimuove ambiguità prima del plan</li><li><strong>Extensions/Presets</strong> — overrides > presets > extensions > core</li><li><strong>Walkthroughs enterprise</strong> — ASP.NET 307k LOC, Java 420k LOC</li><li><strong>25+ agent</strong> supportati nativamente</li></ul></div>
 
   <div class="cd" style="border-top:3px solid var(--sp)"><div class="cd-h"><span class="dot" style="background:var(--sp)"></span><h4>Superpowers</h4></div>
-  <ul><li><strong>Autonomia massima</strong> — lavora ore senza deviare</li><li><strong>TDD hardcoded</strong> — cancella codice scritto prima dei test</li><li><strong>Subagent-driven</strong> — two-stage review (spec + quality)</li><li><strong>Debugging strutturato</strong> — 4 fasi, root cause tracing</li><li><strong>Zero ceremony</strong> — nessun comando da ricordare</li></ul></div>
+  <ul><li><strong>Autonomia massima</strong> — lavora ore senza deviare</li>        <li><strong>TDD nelle istruzioni</strong> — la skill impone il ciclo RED (test che fallisce) → GREEN (codice minimo) → REFACTOR. Se l'agente scrive codice prima del test, le istruzioni gli dicono di cancellarlo e ricominciare dal test. Non è un enforcement tecnico (nessun hook o linter): è un prompt categorico nel contesto dell'agente. Con Claude Code funziona bene, ma in sessioni lunghe l'agente potrebbe "dimenticare" la regola.</li><li><strong>Subagent-driven</strong> — two-stage review (spec + quality)</li><li><strong>Debugging strutturato</strong> — 4 fasi, root cause tracing</li><li><strong>Zero ceremony</strong> — nessun comando da ricordare</li></ul></div>
 
   <div class="cd" style="border-top:3px solid var(--os)"><div class="cd-h"><span class="dot" style="background:var(--os)"></span><h4>OpenSpec</h4></div>
   <ul><li><strong>Fluidità massima</strong> — modifica qualsiasi artefatto in qualsiasi momento</li><li><strong>Brownfield-first</strong> — ogni change isolata in cartella</li><li><strong>Setup istantaneo</strong> — npm + init</li><li><strong>Dashboard visuale</strong> — stato delle change</li><li><strong>Archiviazione</strong> — storia ordinata automaticamente</li></ul></div>
@@ -270,25 +269,14 @@ tbody tr:last-child td{border-bottom:none}
 <tr><td><strong>opencode</strong></td><td><code>--ai opencode</code></td><td>Manuale (.opencode/)</td><td>Auto-detect</td><td>Supportato via prompt di contesto</td></tr>
 <tr><td><strong>GitHub Copilot</strong></td><td><code>--ai copilot</code></td><td>Plugin marketplace</td><td>Auto-detect</td><td>Supportato via prompt di contesto</td></tr>
 <tr><td><strong>Cursor</strong></td><td><code>--ai cursor-agent</code></td><td>Plugin marketplace</td><td>Auto-detect</td><td>Supportato direttamente</td></tr>
-<tr><td><strong>N. totali</strong></td><td class="y"><strong>25+</strong></td><td class="p"><strong>~6</strong></td><td class="y"><strong>20+</strong></td><td class="p"><strong>~5</strong> (+ qualsiasi con system prompt custom)</td></tr>
+<tr><td><strong>N. totali</strong></td><td class="y"><strong>25+</strong></td><td class="p"><strong>~6</strong></td><td class="y"><strong>20+</strong></td><td class="p"><strong>~3</strong> (+ qualsiasi con system prompt custom)</td></tr>
 </tbody>
 </table></div>
 </section>
 
-<!-- 6 PLANNING -->
-<section id="planning">
-<h2><span class="n">6</span> Confronto del Planning</h2>
-<div class="g4">
-  <div class="cd" style="border-top:3px solid var(--sk)"><h4 class="sk">Processo Formale</h4><p><strong>Controllo:</strong> TU. L'agente genera, tu validi.</p><p><strong>Forza:</strong> <code>/speckit.clarify</code> forza domande PRIMA del plan.</p><p><strong>Limite:</strong> Cerimonia completa pesante per feature piccole.</p></div>
-  <div class="cd" style="border-top:3px solid var(--sp)"><h4 class="sp">Conversazione Naturale</h4><p><strong>Controllo:</strong> L'agente propone, tu validi. Decide quando passare avanti.</p><p><strong>Forza:</strong> Two-stage review garantisce aderenza al piano.</p><p><strong>Limite:</strong> Tracciabilità informale. Non basta per audit.</p></div>
-  <div class="cd" style="border-top:3px solid var(--os)"><h4 class="os">Proposta Fluida</h4><p><strong>Controllo:</strong> TU, con meno cerimonia. <code>/opsx:propose</code> genera tutto.</p><p><strong>Forza:</strong> Velocità. Idea → piano in un comando.</p><p><strong>Limite:</strong> Senza gate, rischio di spec incomplete.</p></div>
-  <div class="cd" style="border-top:3px solid var(--bm)"><h4 class="bm">Team Agile Simulato</h4><p><strong>Controllo:</strong> Ogni agente ha un ruolo. L'Analyst elicita, il PM formalizza, l'Architect progetta.</p><p><strong>Forza:</strong> Scale-adaptive: Quick track salta la cerimonia, Enterprise track la espande.</p><p><strong>Limite:</strong> Curva di apprendimento. 19+ agenti e 50+ workflow da capire. Overhead per task semplici se non usi Quick track.</p></div>
-</div>
-</section>
-
-<!-- 7 COEXISTENCE -->
+<!-- 6 COEXISTENCE -->
 <section id="coexistence">
-<h2><span class="n">7</span> Possono Coesistere?</h2>
+<h2><span class="n">6</span> Possono Coesistere?</h2>
 
 <div class="co info"><strong>Come funziona l'"auto-trigger" di Superpowers:</strong> Non c'è un runtime o daemon. Sono prompt iniettati nel contesto dell'agente. L'attivazione non è osservabile — verificala dal comportamento (fa brainstorming? impone TDD?).</div>
 <div class="co warn"><strong>Problema della priorità:</strong> Con più tool installati, i comandi espliciti (slash) tendono a vincere sull'attenzione dell'agente rispetto alle istruzioni implicite (skill). Il comportamento non è deterministico.</div>
@@ -310,7 +298,7 @@ tbody tr:last-child td{border-bottom:none}
 
 <!-- 8 USE CASES -->
 <section id="usecases">
-<h2><span class="n">8</span> Casi d'Uso: Quale Scegliere e Perché</h2>
+<h2><span class="n">7</span> Casi d'Uso: Quale Scegliere e Perché</h2>
 
 <div class="co info" style="margin-bottom:1.2rem"><strong>Come leggere questa sezione:</strong> Ogni scenario è un momento concreto del tuo lavoro quotidiano. Per ognuno ti dico quale tool usare, perché quello e non gli altri, e cosa perdi se scegli diversamente. In fondo trovi il decision tree riassuntivo.</div>
 
@@ -343,7 +331,7 @@ tbody tr:last-child td{border-bottom:none}
 <h4>Scenario 3 — Hai 3 ore di focus time e vuoi che Claude Code implementi senza fermarti</h4>
 <p class="rec"><span class="sp">→ Superpowers</span></p>
 <p><strong>Situazione tipica:</strong> Hai già chiaro cosa costruire (magari hai già una spec scritta a mano). Vuoi che l'agente lavori in autonomia: scriva test, implementi, faccia review, e vada avanti senza chiederti conferma ogni 2 minuti.</p>
-<p><strong>Perché Superpowers:</strong> L'agente spawna un subagent per ogni task, fa review a 2 stadi (aderenza alla spec + qualità codice), e se qualcosa non va lo blocca da solo senza aspettarti. Il TDD hardcoded garantisce che ogni pezzo di codice abbia il suo test. Puoi letteralmente andare a fare altro.</p>
+<p><strong>Perché Superpowers:</strong> L'agente spawna un subagent per ogni task, fa review a 2 stadi (aderenza alla spec + qualità codice), e se qualcosa non va lo blocca da solo senza aspettarti. Le istruzioni TDD impongono che ogni pezzo di codice abbia il suo test scritto prima — se l'agente viola l'ordine, la skill gli dice di cancellare e ricominciare dal test. Puoi letteralmente andare a fare altro.</p>
 <p><strong>Perché NON gli altri:</strong></p>
 <p>• <span class="sk">Spec Kit</span> — <code>/speckit.implement</code> esegue i task in sequenza ma non ha subagent, non ha review automatica tra task, non impone TDD. È un esecutore, non un agente autonomo.</p>
 <p>• <span class="os">OpenSpec</span> — <code>/opsx:apply</code> è simile: esegue task ma senza intelligenza di revisione autonoma.</p>
@@ -438,7 +426,7 @@ tbody tr:last-child td{border-bottom:none}
 
 <!-- 9 RATINGS -->
 <section id="ratings">
-<h2><span class="n">9</span> Valutazione Comparativa</h2>
+<h2><span class="n">8</span> Valutazione Comparativa</h2>
 
 <div class="rs"><div class="rt">Rigore del processo</div><div class="rd">Phase gate obbligatori, validazione prima di procedere</div><div class="rb">
   <div class="rr"><span class="rl sk">Spec Kit</span><div class="rbg"><div class="rbf b-sk" style="width:100%"><span>5/5</span></div></div></div>
@@ -459,7 +447,7 @@ tbody tr:last-child td{border-bottom:none}
   <div class="rr"><span class="rl sp">Superpowers</span><div class="rbg"><div class="rbf b-sp" style="width:80%"><span>4/5</span></div></div></div>
   <div class="rr"><span class="rl os">OpenSpec</span><div class="rbg"><div class="rbf b-os" style="width:100%"><span>5/5</span></div></div></div>
   <div class="rr"><span class="rl bm">B-MAD</span><div class="rbg"><div class="rbf b-bm" style="width:50%"><span>2.5/5</span></div></div></div>
-</div><div class="rdet">OpenSpec: npm + init. Superpowers: un comando su Claude Code. Spec Kit: Python/uv. B-MAD: Node 22+, npx install, bisogna capire agenti e moduli (curva di apprendimento).</div></div>
+</div><div class="rdet">OpenSpec: npm + init. Superpowers: un comando su Claude Code. Spec Kit: Python/uv. B-MAD: Node 20+, npx install, bisogna capire agenti e moduli (curva di apprendimento).</div></div>
 
 <div class="rs"><div class="rt">Autonomia dell'agente</div><div class="rd">Capacità di procedere senza intervento umano</div><div class="rb">
   <div class="rr"><span class="rl sk">Spec Kit</span><div class="rbg"><div class="rbf b-sk" style="width:60%"><span>3/5</span></div></div></div>
@@ -473,7 +461,7 @@ tbody tr:last-child td{border-bottom:none}
   <div class="rr"><span class="rl sp">Superpowers</span><div class="rbg"><div class="rbf b-sp" style="width:100%"><span>5/5</span></div></div></div>
   <div class="rr"><span class="rl os">OpenSpec</span><div class="rbg"><div class="rbf b-os" style="width:40%"><span>2/5</span></div></div></div>
   <div class="rr"><span class="rl bm">B-MAD</span><div class="rbg"><div class="rbf b-bm" style="width:70%"><span>3.5/5</span></div></div></div>
-</div><div class="rdet">Superpowers: hardcoded, cancella codice pre-test. B-MAD: QA agent dedicato, test strategy nell'Enterprise track, ma non cancella codice. Spec Kit/OpenSpec: configurabile.</div></div>
+</div><div class="rdet">Superpowers: istruzioni categoriche nella skill — cancella codice pre-test — ma è un prompt, non un hook tecnico. B-MAD: QA agent dedicato, test strategy nell'Enterprise track, ma non cancella codice. Spec Kit/OpenSpec: configurabile.</div></div>
 
 <div class="rs"><div class="rt">Brownfield support</div><div class="rd">Progettato per codebase esistenti</div><div class="rb">
   <div class="rr"><span class="rl sk">Spec Kit</span><div class="rbg"><div class="rbf b-sk" style="width:80%"><span>4/5</span></div></div></div>
