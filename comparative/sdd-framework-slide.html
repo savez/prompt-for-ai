@@ -1,0 +1,456 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--sk:#4facfe;--sp:#a78bfa;--os:#34d399;--bm:#fb923c;--r-background-color:#0a0a12;--r-main-font:'Inter',sans-serif;--r-heading-font:'Inter',sans-serif;--r-code-font:'JetBrains Mono',monospace;--r-main-font-size:28px;--r-heading-color:#eee;--r-main-color:#c8c8d8;--r-link-color:#818cf8;--r-heading-text-transform:none;--r-heading-font-weight:800}
+.reveal{font-weight:400}
+.reveal h1,.reveal h2,.reveal h3{letter-spacing:-.5px;line-height:1.15}
+.reveal h1{font-size:2.2em}.reveal h2{font-size:1.5em}.reveal h3{font-size:1.1em}
+.reveal code{font-family:var(--r-code-font);background:rgba(255,255,255,.08);padding:.1em .4em;border-radius:4px;font-size:.85em}
+.reveal small{color:#8888a8;font-size:.55em}
+.gr-sk{background:linear-gradient(135deg,#4facfe,#00f2fe);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gr-sp{background:linear-gradient(135deg,#a78bfa,#e879f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gr-os{background:linear-gradient(135deg,#34d399,#6ee7b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gr-bm{background:linear-gradient(135deg,#fb923c,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sk{color:var(--sk)}.sp{color:var(--sp)}.os{color:var(--os)}.bm{color:var(--bm)}
+.dim{color:#4a4a62;font-weight:300}
+.badge{display:inline-block;font-size:.45em;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#818cf8;background:rgba(99,102,241,.12);padding:.3em .8em;border-radius:16px;border:1px solid rgba(99,102,241,.25);margin-bottom:.5em}
+.pill{display:inline-block;font-size:.5em;padding:.2em .6em;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);margin:.15em;font-weight:500}
+.reveal table{font-size:.55em;border-collapse:collapse;width:100%;margin:.5em 0}
+.reveal table th{background:rgba(255,255,255,.06);padding:.5em .6em;text-align:left;font-weight:600;font-size:.9em;letter-spacing:.5px;text-transform:uppercase;color:#8888a8;border-bottom:2px solid rgba(255,255,255,.1)}
+.reveal table td{padding:.4em .6em;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top}
+.y{color:#34d399}.p{color:#fbbf24}.x{color:#4a4a62}
+code{font-family:var(--r-code-font);background:rgba(255,255,255,.08);padding:.1em .4em;border-radius:4px;font-size:.85em}
+.card-grid{display:grid;gap:.6em;text-align:left}
+.card-grid.c2{grid-template-columns:1fr 1fr}.card-grid.c4{grid-template-columns:1fr 1fr 1fr 1fr}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:.7em .8em;font-size:.55em;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.card.sk-c::before{background:linear-gradient(90deg,#4facfe,#00f2fe)}.card.sp-c::before{background:linear-gradient(90deg,#a78bfa,#e879f9)}.card.os-c::before{background:linear-gradient(90deg,#34d399,#6ee7b7)}.card.bm-c::before{background:linear-gradient(90deg,#fb923c,#fbbf24)}
+.card h4{font-size:1.15em;font-weight:700;margin:0 0 .3em}.card p{margin:.2em 0;color:#9898b0;line-height:1.5}.card strong{color:#ddd}
+.card ul{margin:.3em 0;padding-left:1.2em}.card li{margin:.15em 0;color:#9898b0;line-height:1.45}.card li strong{color:#ddd}
+.steps{text-align:left;font-size:.6em}
+.step{display:flex;gap:.5em;margin:.3em 0;align-items:baseline}
+.step-n{width:24px;height:24px;border-radius:50%;font-size:.75em;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-n.sk-n{background:rgba(79,172,254,.15);color:var(--sk)}.step-n.sp-n{background:rgba(167,139,250,.15);color:var(--sp)}.step-n.os-n{background:rgba(52,211,153,.15);color:var(--os)}.step-n.bm-n{background:rgba(251,146,60,.15);color:var(--bm)}
+.atag{display:inline-block;font-size:.75em;font-weight:600;padding:.1em .4em;border-radius:4px;margin-left:.3em}
+.atag-sp{background:rgba(167,139,250,.12);color:var(--sp)}.atag-bm{background:rgba(251,146,60,.12);color:var(--bm)}
+.bar-group{text-align:left;font-size:.55em;margin:.4em 0}
+.bar-row{display:flex;align-items:center;gap:.4em;margin:.25em 0}
+.bar-label{width:100px;text-align:right;font-weight:500;flex-shrink:0}
+.bar-bg{flex:1;height:18px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:5px}
+.bar-fill span{font-size:.75em;font-weight:700;color:#0a0a12}
+.f-sk{background:linear-gradient(90deg,#4facfe,#00f2fe)}.f-sp{background:linear-gradient(90deg,#a78bfa,#e879f9)}.f-os{background:linear-gradient(90deg,#34d399,#6ee7b7)}.f-bm{background:linear-gradient(90deg,#fb923c,#fbbf24)}
+.uc{text-align:left;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:.6em .8em;font-size:.6em;position:relative;overflow:hidden}
+.uc::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px}
+.uc.sk-c::before{background:linear-gradient(180deg,#4facfe,#00f2fe)}.uc.sp-c::before{background:linear-gradient(180deg,#a78bfa,#e879f9)}.uc.os-c::before{background:linear-gradient(180deg,#34d399,#6ee7b7)}.uc.bm-c::before{background:linear-gradient(180deg,#fb923c,#fbbf24)}
+.uc h4{font-size:1.05em;font-weight:700;margin:0 0 .2em}.uc .rec{font-weight:700;font-size:1em;margin:.1em 0}.uc p{color:#9898b0;margin:.15em 0;line-height:1.45}.uc strong{color:#ddd}
+.coex{display:flex;gap:.5em;align-items:baseline;text-align:left;font-size:.6em;margin:.3em 0;padding:.4em .6em;background:rgba(255,255,255,.03);border-radius:6px}
+.coex-b{font-size:.8em;font-weight:700;padding:.15em .45em;border-radius:4px;flex-shrink:0;letter-spacing:.3px}
+.coex-b.w{background:rgba(251,191,36,.1);color:#fbbf24}.coex-b.b{background:rgba(239,68,68,.1);color:#f87171}.coex-b.g{background:rgba(52,211,153,.1);color:#34d399}
+.dtree{text-align:left;font-size:.6em;line-height:2}
+.dtree .indent{padding-left:1.5em}
+.note{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:8px;padding:.5em .7em;font-size:.55em;text-align:left;color:#a0a0c0;margin:.5em 0}.note strong{color:#818cf8}
+.ref-link{display:inline-block;font-size:.5em;margin-top:.8em;padding:.4em 1em;border-radius:20px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);color:#818cf8;font-weight:500;text-decoration:none}
+.ref-link:hover{background:rgba(99,102,241,.2);color:#a5b4fc}
+</style>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- TITLE -->
+<section>
+  <div class="badge">Comparativa · Aprile 2026</div>
+  <h1 style="font-size:1.8em"><span class="gr-sk">Spec Kit</span> <span class="dim">vs</span> <span class="gr-sp">Superpowers</span><br><span class="dim">vs</span> <span class="gr-os">OpenSpec</span> <span class="dim">vs</span> <span class="gr-bm">B-MAD</span></h1>
+  <p style="color:#8888a8;font-size:.65em;margin-top:.8em">Framework per Spec-Driven Development con AI coding agents</p>
+  <div style="margin-top:.8em">
+    <span class="pill">⭐ spec-kit 81.4k</span>
+    <span class="pill">⭐ superpowers 137k</span>
+    <span class="pill">⭐ OpenSpec 37.7k</span>
+    <span class="pill">⭐ BMAD 42.1k</span>
+  </div>
+  <a class="ref-link" href="https://savez.github.io/prompt-for-ai/comparative/sdd-framework.html#usecases" target="_blank">📄 Report completo con tutti i dettagli →</a>
+</section>
+
+<!-- IDENTITY -->
+<section>
+<section><h2><span style="color:#818cf8">01</span> Identità e Filosofia</h2><p style="color:#6a6a8c;font-size:.5em">↓ dettagli per ogni framework</p></section>
+
+<section><h3><span class="gr-sk">Spec Kit</span> <small>github/spec-kit · Python/uv · ⭐ 81.4k</small></h3>
+<div class="card sk-c" style="font-size:.85em;max-width:780px;margin:.4em auto">
+<h4>Spec-Driven Development</h4>
+<p>CLI <code>specify</code> con 7 fasi sequenziali: <strong>constitution → specify (COSA, no tech) → clarify (domande) → plan (tech stack) → analyze → tasks → implement</strong>. Ogni fase produce Markdown versionato in <code>.specify/</code>.</p>
+<p><strong>Differenziatore:</strong> La fase <code>clarify</code> forza domande strutturate prima del piano. Extensions + presets stackabili (Agile, DDD, compliance). 25+ agent.</p>
+</div></section>
+
+<section><h3><span class="gr-sp">Superpowers</span> <small>obra/superpowers · Shell/JS · ⭐ 137k</small></h3>
+<div class="card sp-c" style="font-size:.85em;max-width:780px;margin:.4em auto">
+<h4>Agentic Skills Framework</h4>
+<p>Skill auto-triggered: brainstorming socratico → worktree git → subagent per task con two-stage review → TDD imposto (se scrivi codice prima dei test, le istruzioni dicono di cancellarlo). <strong>Zero comandi</strong>.</p>
+<p><strong>Differenziatore:</strong> Subagent-driven, autonomia per ore. Debugging strutturato 4 fasi. Le skill sono prompt nel contesto, non un runtime — attivazione non garantita tecnicamente.</p>
+</div></section>
+
+<section><h3><span class="gr-os">OpenSpec</span> <small>Fission-AI/OpenSpec · TypeScript/npm · ⭐ 37.7k</small></h3>
+<div class="card os-c" style="font-size:.85em;max-width:780px;margin:.4em auto">
+<h4>"Fluid, not rigid. Built for brownfield."</h4>
+<p><code>/opsx:propose "feature"</code> genera in un colpo: proposal.md, specs/, design.md, tasks.md. <strong>Nessun phase gate</strong> — modifica qualsiasi artefatto in qualsiasi momento. Archivia con <code>/opsx:archive</code>.</p>
+<p><strong>Differenziatore:</strong> Velocità massima. Idea → piano in un comando. Brownfield-first: ogni change isolata.</p>
+</div></section>
+
+<section><h3><span class="gr-bm">B-MAD</span> <small>bmad-code-org/BMAD-METHOD · Node.js 20+ · ⭐ 42.1k</small></h3>
+<div class="card bm-c" style="font-size:.85em;max-width:780px;margin:.4em auto">
+<h4>Agentic Agile Driven Development</h4>
+<p>19+ agenti specializzati (Analyst, PM, Architect, Dev, QA) ognuno con persona e comandi propri. <strong>Scale-adaptive:</strong> Quick (bug fix) · BMad (PRD+Arch+UX) · Enterprise (+Security/DevOps/Test).</p>
+<p><strong>Differenziatore:</strong> Multi-agent reale. Adversarial review. Unico non limitato al software (game dev, creative, business). Curva apprendimento più ripida.</p>
+</div></section>
+</section>
+
+<!-- FEATURES -->
+<section>
+<section><h2><span style="color:#818cf8">02</span> Confronto Feature</h2></section>
+
+<section><h3>Infrastruttura e Processo</h3>
+<table>
+<thead><tr><th></th><th class="sk">Spec Kit</th><th class="sp">Superpowers</th><th class="os">OpenSpec</th><th class="bm">B-MAD</th></tr></thead>
+<tbody>
+<tr><td>CLI</td><td class="y">✅ <code>specify</code></td><td class="x">❌</td><td class="y">✅ <code>openspec</code></td><td class="y">✅ <code>npx bmad-method</code></td></tr>
+<tr><td>Agenti</td><td class="x">❌ Singolo</td><td class="x">❌ Skill</td><td class="x">❌ Singolo</td><td class="y">✅ <strong>19+</strong></td></tr>
+<tr><td>Invocazione</td><td class="y">Slash cmd</td><td class="p">Auto-trigger</td><td class="y">Slash cmd</td><td class="y">Per agente</td></tr>
+<tr><td>Scale-adaptive</td><td class="x">❌</td><td class="x">❌</td><td class="p">⚠️</td><td class="y">✅ <strong>3 track</strong></td></tr>
+<tr><td>TDD</td><td class="p">⚠️ Config</td><td class="y">✅ <strong>Via skill</strong></td><td class="p">⚠️</td><td class="y">✅ QA agent</td></tr>
+<tr><td>Code review</td><td class="p">⚠️</td><td class="y">✅ Two-stage</td><td class="p">⚠️</td><td class="y">✅ <strong>Adversarial</strong></td></tr>
+<tr><td>Subagent</td><td class="x">❌</td><td class="y">✅</td><td class="x">❌</td><td class="y">✅ Multi-agent</td></tr>
+<tr><td>Debugging</td><td class="x">❌</td><td class="y">✅ 4 fasi</td><td class="x">❌</td><td class="p">⚠️</td></tr>
+<tr><td>Extensions</td><td class="y">✅ Presets</td><td class="x">❌</td><td class="y">✅ Profili</td><td class="y">✅ <strong>Ecosystem</strong></td></tr>
+<tr><td>Brownfield</td><td class="y">✅</td><td class="p">⚠️</td><td class="y">✅ <strong>First</strong></td><td class="y">✅</td></tr>
+<tr><td>Non-software</td><td class="x">❌</td><td class="x">❌</td><td class="x">❌</td><td class="y">✅</td></tr>
+</tbody>
+</table></section>
+</section>
+
+<!-- EXCELS -->
+<section>
+<h2><span style="color:#818cf8">03</span> Punti di Forza</h2>
+<div class="card-grid c2" style="margin-top:.5em">
+<div class="card sk-c"><h4 class="sk">Spec Kit</h4><ul>
+<li><strong>Rigore</strong> — 7 step con gate</li>
+<li><strong>Clarify</strong> — rimuove ambiguità prima del plan</li>
+<li><strong>Extensions/Presets</strong> stackabili a 3 livelli</li>
+<li><strong>Walkthroughs</strong> — ASP.NET 307k LOC, Java 420k LOC</li>
+</ul></div>
+<div class="card sp-c"><h4 class="sp">Superpowers</h4><ul>
+<li><strong>Autonomia</strong> — ore senza deviare</li>
+<li><strong>TDD via istruzioni</strong> — RED→GREEN→REFACTOR</li>
+<li><strong>Subagent</strong> + two-stage review</li>
+<li><strong>Debugging</strong> strutturato 4 fasi</li>
+</ul></div>
+<div class="card os-c"><h4 class="os">OpenSpec</h4><ul>
+<li><strong>Fluidità</strong> — modifica tutto, sempre</li>
+<li><strong>Brownfield-first</strong></li>
+<li><strong>Setup istantaneo</strong> — npm + init</li>
+<li><strong>Archiviazione</strong> automatica ordinata</li>
+</ul></div>
+<div class="card bm-c"><h4 class="bm">B-MAD</h4><ul>
+<li><strong>Multi-agent reale</strong> — 19+ con persona</li>
+<li><strong>Scale-adaptive</strong> — Quick / BMad / Enterprise</li>
+<li><strong>Adversarial review</strong> cross-agente</li>
+<li><strong>Ecosystem</strong> — Game Dev, CIS, Builder</li>
+</ul></div>
+</div>
+</section>
+
+<!-- WORKFLOW -->
+<section>
+<section><h2><span style="color:#818cf8">04</span> Workflow</h2><p style="color:#6a6a8c;font-size:.5em">↓ un workflow per slide</p></section>
+
+<section><h3><span class="gr-sk">Spec Kit</span></h3>
+<div class="steps" style="max-width:700px;margin:0 auto">
+<div class="step"><span class="step-n sk-n">1</span><span><code>specify init . --ai claude</code></span></div>
+<div class="step"><span class="step-n sk-n">2</span><span><code>/speckit.constitution</code> — principi fondamentali</span></div>
+<div class="step"><span class="step-n sk-n">3</span><span><code>/speckit.specify</code> — <strong>COSA</strong> (no tech stack)</span></div>
+<div class="step"><span class="step-n sk-n">4</span><span><code>/speckit.clarify</code> — rimuove ambiguità con domande</span></div>
+<div class="step"><span class="step-n sk-n">5</span><span><code>/speckit.plan</code> — <strong>COME</strong> (tech stack, architettura)</span></div>
+<div class="step"><span class="step-n sk-n">6</span><span><code>/speckit.analyze</code> — consistency check</span></div>
+<div class="step"><span class="step-n sk-n">7</span><span><code>/speckit.tasks</code> → <code>/speckit.implement</code></span></div>
+</div>
+<p style="font-size:.5em;color:#6a6a8c;margin-top:.5em;font-style:italic">Gate rigidi. Separazione "cosa" vs "come". Ogni fase → Markdown versionato.</p>
+</section>
+
+<section><h3><span class="gr-sp">Superpowers</span></h3>
+<div class="steps" style="max-width:700px;margin:0 auto">
+<div class="step"><span class="step-n sp-n">1</span><span>Plugin install</span></div>
+<div class="step"><span class="step-n sp-n">2</span><span>Parli dell'idea <span class="atag atag-sp">AUTO:brainstorming</span></span></div>
+<div class="step"><span class="step-n sp-n">3</span><span>Approvi design <span class="atag atag-sp">AUTO:worktree</span></span></div>
+<div class="step"><span class="step-n sp-n">4</span><span>"Go" <span class="atag atag-sp">AUTO:subagent</span> → two-stage review</span></div>
+<div class="step"><span class="step-n sp-n">5</span><span>Codice <span class="atag atag-sp">AUTO:TDD</span> RED→GREEN→REFACTOR</span></div>
+<div class="step"><span class="step-n sp-n">6</span><span>Fine <span class="atag atag-sp">AUTO:finish-branch</span></span></div>
+</div>
+<p style="font-size:.5em;color:#6a6a8c;margin-top:.5em;font-style:italic">Zero comandi. Skill = prompt nel contesto, non runtime.</p>
+</section>
+
+<section><h3><span class="gr-os">OpenSpec</span></h3>
+<div class="steps" style="max-width:700px;margin:0 auto">
+<div class="step"><span class="step-n os-n">1</span><span><code>openspec init</code></span></div>
+<div class="step"><span class="step-n os-n">2</span><span><code>/opsx:propose "feature"</code> → 4 artefatti</span></div>
+<div class="step"><span class="step-n os-n">3</span><span>Modifica qualsiasi artefatto liberamente</span></div>
+<div class="step"><span class="step-n os-n">4</span><span><code>/opsx:apply</code> → <code>/opsx:verify</code> → <code>/opsx:archive</code></span></div>
+</div>
+<p style="font-size:.5em;color:#6a6a8c;margin-top:.5em;font-style:italic">Un comando genera tutto. Nessun phase gate. Brownfield-first.</p>
+</section>
+
+<section><h3><span class="gr-bm">B-MAD</span></h3>
+<div class="steps" style="max-width:700px;margin:0 auto">
+<div class="step"><span class="step-n bm-n">1</span><span><code>npx bmad-method install</code></span></div>
+<div class="step"><span class="step-n bm-n">2</span><span>Analyst <span class="atag atag-bm">PERSONA</span> brainstorm + elicitation</span></div>
+<div class="step"><span class="step-n bm-n">3</span><span>PM → PRD + stories</span></div>
+<div class="step"><span class="step-n bm-n">4</span><span>Architect → design tecnico</span></div>
+<div class="step"><span class="step-n bm-n">5</span><span>Dev → implementa · QA → adversarial review</span></div>
+</div>
+<p style="font-size:.5em;color:#6a6a8c;margin-top:.5em;font-style:italic">Team agile simulato. 3 track: Quick / BMad / Enterprise.</p>
+</section>
+
+<section><h3>Confronto Diretto</h3>
+<table>
+<thead><tr><th></th><th class="sk">Spec Kit</th><th class="sp">Superpowers</th><th class="os">OpenSpec</th><th class="bm">B-MAD</th></tr></thead>
+<tbody>
+<tr><td>Step</td><td>7 espliciti</td><td>6 auto</td><td>4</td><td>5 per agente</td></tr>
+<tr><td>Controllo</td><td>Tu validi</td><td>Agente decide</td><td>Tu, libero</td><td>Ogni agente il suo</td></tr>
+<tr><td>Gate</td><td class="y"><strong>Rigidi</strong></td><td class="p">Impliciti</td><td class="x">Nessuno</td><td class="y">Per track</td></tr>
+<tr><td>Output</td><td>5+ file .md</td><td>Design doc</td><td>4 file per change</td><td>PRD+Arch+Stories</td></tr>
+</tbody>
+</table></section>
+</section>
+
+<!-- AGENTS -->
+<section>
+<h2><span style="color:#818cf8">05</span> Agent Compatibility</h2>
+<table>
+<thead><tr><th>Agent</th><th class="sk">Spec Kit</th><th class="sp">Superpowers</th><th class="os">OpenSpec</th><th class="bm">B-MAD</th></tr></thead>
+<tbody>
+<tr><td><strong>Claude Code</strong></td><td><code>--ai claude</code></td><td>Plugin marketplace</td><td>Auto-detect</td><td>Raccomandato</td></tr>
+<tr><td><strong>opencode</strong></td><td><code>--ai opencode</code></td><td>Manuale</td><td>Auto-detect</td><td>System prompt</td></tr>
+<tr><td><strong>Copilot</strong></td><td><code>--ai copilot</code></td><td>Plugin marketplace</td><td>Auto-detect</td><td>System prompt</td></tr>
+<tr><td><strong>Cursor</strong></td><td><code>--ai cursor-agent</code></td><td>Plugin marketplace</td><td>Auto-detect</td><td>Supportato</td></tr>
+<tr><td><strong>Totali</strong></td><td class="y"><strong>25+</strong></td><td class="p"><strong>~6</strong></td><td class="y"><strong>20+</strong></td><td class="p"><strong>~3</strong> + custom</td></tr>
+</tbody>
+</table>
+<div class="note" style="margin-top:.4em"><strong>Superpowers</strong> al meglio su Claude Code (plugin nativo). Su altri agent: setup manuale, attivazione non garantita.</div>
+</section>
+
+<!-- COEXISTENCE -->
+<section>
+<h2><span style="color:#818cf8">06</span> Coesistenza</h2>
+<div class="note" style="margin-bottom:.5em"><strong>Premessa:</strong> Superpowers = prompt nel contesto, non runtime. Comandi espliciti (slash) vincono sulle skill implicite.</div>
+<div style="max-width:780px;margin:0 auto">
+<div class="coex"><span class="coex-b w">⚠ TEORICA</span><p><strong class="sk">Spec Kit</strong> + <strong class="sp">Superpowers</strong> — Nessun conflitto file. Skill non garantite durante slash commands.</p></div>
+<div class="coex"><span class="coex-b w">⚠ BASSA</span><p><strong class="sk">Spec Kit</strong> + <strong class="os">OpenSpec</strong> — Due set di artefatti paralleli. L'agente non sa quale seguire.</p></div>
+<div class="coex"><span class="coex-b w">⚠ SOVRAPPOS.</span><p><strong class="sk">Spec Kit</strong> + <strong class="bm">B-MAD</strong> — Due metodologie complete in parallelo = confusione.</p></div>
+<div class="coex"><span class="coex-b w">⚠ TEORICA</span><p><strong class="sp">Superpowers</strong> + <strong class="bm">B-MAD</strong> — Conflitto su "chi comanda" nel contesto.</p></div>
+<div class="coex"><span class="coex-b g">✅ POSSIBILE</span><p><strong class="os">OpenSpec</strong> + <strong class="bm">B-MAD</strong> — In alternanza: OpenSpec per change leggere, B-MAD per complesse.</p></div>
+<div class="coex"><span class="coex-b b">❌ NO</span><p><strong>Tutti insieme</strong> — Troppe istruzioni contrastanti.</p></div>
+</div>
+</section>
+
+<!-- USE CASES -->
+<section>
+<section><h2><span style="color:#818cf8">07</span> Casi d'Uso</h2><p style="color:#6a6a8c;font-size:.5em">↓ uno scenario per slide · Quale tool e perché non gli altri</p></section>
+
+<section><div class="uc sk-c" style="max-width:800px;margin:0 auto">
+<h4>Greenfield, requisiti vaghi</h4>
+<p class="rec">→ <span class="sk">Spec Kit</span></p>
+<p><strong>Situazione:</strong> "Serve un servizio prenotazioni". Non sai quante API, quale DB, come le notifiche.</p>
+<p><strong>Perché:</strong> <code>specify</code> → <code>clarify</code> (domande fino a risolvere tutte le ambiguità) → <code>plan</code> (ORA tech stack). Ti forza a decidere cose che altrimenti scopriresti con un bug.</p>
+<p style="color:#6a6a8c"><strong>Non gli altri:</strong> <span class="sp">Superpowers</span> no artefatti formali. <span class="os">OpenSpec</span> non forza a chiarire. <span class="bm">B-MAD</span> curva apprendimento troppo ripida per partire.</p>
+</div></section>
+
+<section><div class="uc os-c" style="max-width:800px;margin:0 auto">
+<h4>Feature su codebase esistente</h4>
+<p class="rec">→ <span class="os">OpenSpec</span></p>
+<p><strong>Situazione:</strong> Aggiungere dark mode, endpoint, integrazione. Conosci il codice.</p>
+<p><strong>Perché:</strong> <code>/opsx:propose "add-dark-mode"</code> → 30 sec, 4 artefatti. Scopri vincoli? Aggiorni il design senza ricominciare.</p>
+<p style="color:#6a6a8c"><strong>Non gli altri:</strong> <span class="sk">Spec Kit</span> 7 step per dark mode = overkill. <span class="sp">Superpowers</span> no artefatti per colleghi. <span class="bm">B-MAD</span> overhead per task noti.</p>
+</div></section>
+
+<section><div class="uc sp-c" style="max-width:800px;margin:0 auto">
+<h4>Focus time — Claude Code lavora da solo</h4>
+<p class="rec">→ <span class="sp">Superpowers</span></p>
+<p><strong>Situazione:</strong> Hai chiaro cosa costruire. Vuoi che l'agente lavori in autonomia per ore.</p>
+<p><strong>Perché:</strong> Subagent per task, review 2 stadi, TDD imposto. Puoi andare a fare altro.</p>
+<p style="color:#fb923c">⚠ Solo Claude Code — su altri agent non garantito.</p>
+<p style="color:#6a6a8c"><strong>Non gli altri:</strong> <span class="sk">Spec Kit</span> e <span class="os">OpenSpec</span> no subagent/review. <span class="bm">B-MAD</span> checkpoint umano tra fasi.</p>
+</div></section>
+
+<section><div class="uc bm-c" style="max-width:800px;margin:0 auto">
+<h4>Progetto complesso, molti stakeholder</h4>
+<p class="rec">→ <span class="bm">B-MAD</span> (BMad / Enterprise track)</p>
+<p><strong>Situazione:</strong> FE+BE+API+DB, requisiti security, più persone devono capire le decisioni architetturali.</p>
+<p><strong>Perché:</strong> Analyst elicita → PM genera PRD → Architect progetta → Dev implementa → QA adversarial review. Ogni ruolo = un agente. Scale-adaptive.</p>
+<p style="color:#6a6a8c"><strong>Non gli altri:</strong> <span class="sk">Spec Kit</span> un agente fa tutto. <span class="sp">Superpowers</span> no PRD/arch doc. <span class="os">OpenSpec</span> troppo leggero.</p>
+</div></section>
+
+<section><div class="card-grid c2" style="max-width:800px;margin:0 auto">
+<div class="uc bm-c"><h4>Bug fix / task piccolo</h4>
+<p class="rec">→ <span class="bm">B-MAD Quick</span> o nessuno</p>
+<p>Unico con track per task piccoli: solo tech-spec. Per un typo → nessun framework.</p>
+<p style="color:#6a6a8c"><span class="sk">Spec Kit</span> 7 step? No. <span class="os">OpenSpec</span> 4 file per 5 righe? No.</p>
+</div>
+<div class="uc sp-c"><h4>Bug complesso, root cause ignota</h4>
+<p class="rec">→ <span class="sp">Superpowers</span></p>
+<p>Unico con debugging strutturato: raccolta evidenze → ipotesi → verifica sistematica → fix defense-in-depth.</p>
+<p style="color:#6a6a8c">Gli altri non coprono debugging come workflow.</p>
+</div>
+</div></section>
+
+<section><div class="card-grid c2" style="max-width:800px;margin:0 auto">
+<div class="uc sk-c"><h4>Compliance / audit</h4>
+<p class="rec">→ <span class="sk">Spec Kit</span> + presets</p>
+<p>Constitution → Spec → Plan → Tasks in Git. Presets per gate regolatori. <span class="bm">B-MAD Enterprise</span> alternativa.</p>
+</div>
+<div class="uc os-c"><h4>Side project</h4>
+<p class="rec">→ <span class="os">OpenSpec</span></p>
+<p>npm + init + 3 comandi. Quando cresce, hai già artefatti.</p>
+</div>
+</div></section>
+
+<section><div class="uc bm-c" style="max-width:800px;margin:0 auto">
+<h4>Non-software (game dev, creative, strategy)</h4>
+<p class="rec">→ <span class="bm">B-MAD</span> (unica opzione)</p>
+<p>Game Dev Studio (4 agenti, 20+ workflow), Creative Intelligence Suite, business strategy. Gli altri tre sono solo software development.</p>
+</div></section>
+</section>
+
+<!-- DECISION TREE -->
+<section>
+<section><h2><span style="color:#818cf8">08</span> Decision Tree</h2></section>
+
+<section><h3>Quale framework per quale situazione</h3>
+<div class="dtree" style="max-width:720px;margin:0 auto">
+<p><strong>Bug fix di 5 min?</strong> → Nessuno o <span class="bm">B-MAD Quick</span></p>
+<p><strong>Feature su codice esistente?</strong></p>
+<p class="indent">Piccola / media → <span class="os">OpenSpec</span></p>
+<p class="indent">Complessa, cambia architettura → <span class="bm">B-MAD</span> o <span class="sk">Spec Kit</span></p>
+<p><strong>Progetto nuovo da zero?</strong></p>
+<p class="indent">Requisiti vaghi → <span class="sk">Spec Kit</span> (clarify è decisivo)</p>
+<p class="indent">Complesso, molti ruoli → <span class="bm">B-MAD Enterprise</span></p>
+<p class="indent">Prototipo rapido → <span class="os">OpenSpec</span></p>
+<p><strong>Agente autonomo per ore?</strong> → <span class="sp">Superpowers</span> (solo Claude Code)</p>
+<p><strong>Debugging complesso?</strong> → <span class="sp">Superpowers</span></p>
+<p><strong>Audit / compliance?</strong> → <span class="sk">Spec Kit</span></p>
+<p><strong>Non è software?</strong> → <span class="bm">B-MAD</span></p>
+<p><strong>Side project?</strong> → <span class="os">OpenSpec</span></p>
+</div></section>
+
+<section><h3>In una slide</h3>
+<div class="card-grid c2" style="font-size:.9em">
+<div class="card sk-c"><h4>🎯 Spec Kit</h4><p>Requisiti vaghi · Compliance · Greenfield strutturato</p></div>
+<div class="card sp-c"><h4>⚡ Superpowers</h4><p>Focus time autonomo · Debugging · TDD (Claude Code)</p></div>
+<div class="card os-c"><h4>🚀 OpenSpec</h4><p>Brownfield quotidiano · Side project · Velocità</p></div>
+<div class="card bm-c"><h4>🏗️ B-MAD</h4><p>Progetti complessi · Multi-stakeholder · Non-software</p></div>
+</div></section>
+</section>
+
+<!-- RATINGS -->
+<section>
+<section><h2><span style="color:#818cf8">09</span> Valutazione</h2></section>
+
+<section><h3>Processo e Flessibilità</h3>
+<div class="card-grid c2">
+<div style="text-align:left"><h4 style="font-size:.7em;color:#818cf8;margin-bottom:.3em">Rigore del processo</h4><div class="bar-group">
+<div class="bar-row"><span class="bar-label sk">Spec Kit</span><div class="bar-bg"><div class="bar-fill f-sk" style="width:100%"><span>5/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label sp">Superpowers</span><div class="bar-bg"><div class="bar-fill f-sp" style="width:60%"><span>3/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label os">OpenSpec</span><div class="bar-bg"><div class="bar-fill f-os" style="width:40%"><span>2/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label bm">B-MAD</span><div class="bar-bg"><div class="bar-fill f-bm" style="width:90%"><span>4.5</span></div></div></div>
+</div></div>
+<div style="text-align:left"><h4 style="font-size:.7em;color:#818cf8;margin-bottom:.3em">Flessibilità</h4><div class="bar-group">
+<div class="bar-row"><span class="bar-label sk">Spec Kit</span><div class="bar-bg"><div class="bar-fill f-sk" style="width:40%"><span>2/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label sp">Superpowers</span><div class="bar-bg"><div class="bar-fill f-sp" style="width:60%"><span>3/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label os">OpenSpec</span><div class="bar-bg"><div class="bar-fill f-os" style="width:100%"><span>5/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label bm">B-MAD</span><div class="bar-bg"><div class="bar-fill f-bm" style="width:70%"><span>3.5</span></div></div></div>
+</div></div>
+</div></section>
+
+<section><h3>Setup e Autonomia</h3>
+<div class="card-grid c2">
+<div style="text-align:left"><h4 style="font-size:.7em;color:#818cf8;margin-bottom:.3em">Setup velocity</h4><div class="bar-group">
+<div class="bar-row"><span class="bar-label sk">Spec Kit</span><div class="bar-bg"><div class="bar-fill f-sk" style="width:60%"><span>3/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label sp">Superpowers</span><div class="bar-bg"><div class="bar-fill f-sp" style="width:80%"><span>4/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label os">OpenSpec</span><div class="bar-bg"><div class="bar-fill f-os" style="width:100%"><span>5/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label bm">B-MAD</span><div class="bar-bg"><div class="bar-fill f-bm" style="width:50%"><span>2.5</span></div></div></div>
+</div></div>
+<div style="text-align:left"><h4 style="font-size:.7em;color:#818cf8;margin-bottom:.3em">Autonomia agente</h4><div class="bar-group">
+<div class="bar-row"><span class="bar-label sk">Spec Kit</span><div class="bar-bg"><div class="bar-fill f-sk" style="width:60%"><span>3/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label sp">Superpowers</span><div class="bar-bg"><div class="bar-fill f-sp" style="width:100%"><span>5/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label os">OpenSpec</span><div class="bar-bg"><div class="bar-fill f-os" style="width:60%"><span>3/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label bm">B-MAD</span><div class="bar-bg"><div class="bar-fill f-bm" style="width:80%"><span>4/5</span></div></div></div>
+</div></div>
+</div></section>
+
+<section><h3>TDD e Brownfield</h3>
+<div class="card-grid c2">
+<div style="text-align:left"><h4 style="font-size:.7em;color:#818cf8;margin-bottom:.3em">TDD enforcement</h4><div class="bar-group">
+<div class="bar-row"><span class="bar-label sk">Spec Kit</span><div class="bar-bg"><div class="bar-fill f-sk" style="width:40%"><span>2/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label sp">Superpowers</span><div class="bar-bg"><div class="bar-fill f-sp" style="width:100%"><span>5/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label os">OpenSpec</span><div class="bar-bg"><div class="bar-fill f-os" style="width:40%"><span>2/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label bm">B-MAD</span><div class="bar-bg"><div class="bar-fill f-bm" style="width:70%"><span>3.5</span></div></div></div>
+</div></div>
+<div style="text-align:left"><h4 style="font-size:.7em;color:#818cf8;margin-bottom:.3em">Brownfield</h4><div class="bar-group">
+<div class="bar-row"><span class="bar-label sk">Spec Kit</span><div class="bar-bg"><div class="bar-fill f-sk" style="width:80%"><span>4/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label sp">Superpowers</span><div class="bar-bg"><div class="bar-fill f-sp" style="width:60%"><span>3/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label os">OpenSpec</span><div class="bar-bg"><div class="bar-fill f-os" style="width:100%"><span>5/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label bm">B-MAD</span><div class="bar-bg"><div class="bar-fill f-bm" style="width:80%"><span>4/5</span></div></div></div>
+</div></div>
+</div></section>
+
+<section><h3>Enterprise e Curva di Apprendimento</h3>
+<div class="card-grid c2">
+<div style="text-align:left"><h4 style="font-size:.7em;color:#818cf8;margin-bottom:.3em">Enterprise / Audit</h4><div class="bar-group">
+<div class="bar-row"><span class="bar-label sk">Spec Kit</span><div class="bar-bg"><div class="bar-fill f-sk" style="width:100%"><span>5/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label sp">Superpowers</span><div class="bar-bg"><div class="bar-fill f-sp" style="width:40%"><span>2/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label os">OpenSpec</span><div class="bar-bg"><div class="bar-fill f-os" style="width:60%"><span>3/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label bm">B-MAD</span><div class="bar-bg"><div class="bar-fill f-bm" style="width:90%"><span>4.5</span></div></div></div>
+</div></div>
+<div style="text-align:left"><h4 style="font-size:.7em;color:#818cf8;margin-bottom:.3em">Curva apprendimento (5=facile)</h4><div class="bar-group">
+<div class="bar-row"><span class="bar-label sk">Spec Kit</span><div class="bar-bg"><div class="bar-fill f-sk" style="width:70%"><span>3.5</span></div></div></div>
+<div class="bar-row"><span class="bar-label sp">Superpowers</span><div class="bar-bg"><div class="bar-fill f-sp" style="width:90%"><span>4.5</span></div></div></div>
+<div class="bar-row"><span class="bar-label os">OpenSpec</span><div class="bar-bg"><div class="bar-fill f-os" style="width:100%"><span>5/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label bm">B-MAD</span><div class="bar-bg"><div class="bar-fill f-bm" style="width:40%"><span>2/5</span></div></div></div>
+</div></div>
+</div></section>
+
+<section><h3>Estensibilità e Maturità</h3>
+<div class="card-grid c2">
+<div style="text-align:left"><h4 style="font-size:.7em;color:#818cf8;margin-bottom:.3em">Estensibilità</h4><div class="bar-group">
+<div class="bar-row"><span class="bar-label sk">Spec Kit</span><div class="bar-bg"><div class="bar-fill f-sk" style="width:100%"><span>5/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label sp">Superpowers</span><div class="bar-bg"><div class="bar-fill f-sp" style="width:60%"><span>3/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label os">OpenSpec</span><div class="bar-bg"><div class="bar-fill f-os" style="width:60%"><span>3/5</span></div></div></div>
+<div class="bar-row"><span class="bar-label bm">B-MAD</span><div class="bar-bg"><div class="bar-fill f-bm" style="width:100%"><span>5/5</span></div></div></div>
+</div></div>
+<div style="text-align:left"><h4 style="font-size:.7em;color:#818cf8;margin-bottom:.3em">Maturità</h4><div class="bar-group">
+<div class="bar-row"><span class="bar-label sk">Spec Kit</span><div class="bar-bg"><div class="bar-fill f-sk" style="width:85%"><span>118 rel</span></div></div></div>
+<div class="bar-row"><span class="bar-label sp">Superpowers</span><div class="bar-bg"><div class="bar-fill f-sp" style="width:25%"><span>4 rel</span></div></div></div>
+<div class="bar-row"><span class="bar-label os">OpenSpec</span><div class="bar-bg"><div class="bar-fill f-os" style="width:55%"><span>34 rel</span></div></div></div>
+<div class="bar-row"><span class="bar-label bm">B-MAD</span><div class="bar-bg"><div class="bar-fill f-bm" style="width:100%"><span>1732 commits</span></div></div></div>
+</div></div>
+</div></section>
+</section>
+
+<!-- CLOSING -->
+<section>
+  <h2>Takeaway</h2>
+  <div class="card-grid c2" style="margin-top:.6em">
+    <div class="card sk-c"><h4>🎯 Spec Kit</h4><p><strong>Chiarire prima, costruire dopo.</strong><br>Compliance. Greenfield strutturato. 25+ agent.</p></div>
+    <div class="card sp-c"><h4>⚡ Superpowers</h4><p><strong>L'agente lavora da solo.</strong><br>TDD. Debugging. Solo Claude Code.</p></div>
+    <div class="card os-c"><h4>🚀 OpenSpec</h4><p><strong>Struttura minima, massima velocità.</strong><br>Brownfield. Side project. Quotidiano.</p></div>
+    <div class="card bm-c"><h4>🏗️ B-MAD</h4><p><strong>Un team, non un tool.</strong><br>Progetti complessi. Multi-stakeholder. Non-software.</p></div>
+  </div>
+  <a class="ref-link" href="https://savez.github.io/prompt-for-ai/comparative/sdd-framework.html#usecases" target="_blank">📄 Report completo con tutti i dettagli →</a>
+  <p style="color:#4a4a62;font-size:.4em;margin-top:.6em">Comparativa aprile 2026 — Dati da README e documentazione ufficiale dei repository</p>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+Reveal.initialize({hash:true,slideNumber:'c/t',transition:'slide',center:true,controls:true,progress:true,width:1100,height:700,margin:.08});
+</script>
