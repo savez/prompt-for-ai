@@ -18,7 +18,8 @@
 .pill{display:inline-block;font-size:.5em;padding:.2em .6em;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);margin:.15em;font-weight:500}
 .reveal table{font-size:.55em;border-collapse:collapse;width:100%;margin:.5em 0}
 .reveal table th{background:rgba(255,255,255,.06);padding:.5em .6em;text-align:left;font-weight:600;font-size:.9em;letter-spacing:.5px;text-transform:uppercase;color:#8888a8;border-bottom:2px solid rgba(255,255,255,.1)}
-.reveal table td{padding:.4em .6em;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top}
+.reveal table td{padding:.4em .6em;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top;color:#c8c8d8}
+.reveal table td strong{color:#eee}
 .y{color:#34d399}.p{color:#fbbf24}.x{color:#4a4a62}
 code{font-family:var(--r-code-font);background:rgba(255,255,255,.08);padding:.1em .4em;border-radius:4px;font-size:.85em}
 .card-grid{display:grid;gap:.6em;text-align:left}
@@ -258,64 +259,73 @@ code{font-family:var(--r-code-font);background:rgba(255,255,255,.08);padding:.1e
 <section><div class="uc sk-c" style="max-width:800px;margin:0 auto">
 <h4>Greenfield, requisiti vaghi</h4>
 <p class="rec">→ <span class="sk">Spec Kit</span></p>
-<p><strong>Situazione:</strong> "Serve un servizio prenotazioni". Non sai quante API, quale DB, come le notifiche.</p>
-<p><strong>Perché:</strong> <code>specify</code> → <code>clarify</code> (domande fino a risolvere tutte le ambiguità) → <code>plan</code> (ORA tech stack). Ti forza a decidere cose che altrimenti scopriresti con un bug.</p>
-<p style="color:#6a6a8c"><strong>Non gli altri:</strong> <span class="sp">Superpowers</span> no artefatti formali. <span class="os">OpenSpec</span> non forza a chiarire. <span class="bm">B-MAD</span> curva apprendimento troppo ripida per partire.</p>
+<p><strong>Situazione:</strong> Il PM dice "serve un servizio che gestisce le prenotazioni". Non sai quante API servono, quale DB, come gestire le notifiche. I requisiti sono incompleti e ambigui.</p>
+<p><strong>Perché Spec Kit:</strong> La sequenza <code>/speckit.specify</code> (scrivi COSA senza pensare al tech) → <code>/speckit.clarify</code> (l'agente ti fa domande fino a risolvere ogni ambiguità) → <code>/speckit.plan</code> (ORA parli di tech stack) è progettata per questo. La fase clarify ti forza a decidere cose che altrimenti scopriresti a metà implementazione — es: "cosa succede se un utente prenota due volte?"</p>
+<p style="color:#6a6a8c"><strong>Non gli altri:</strong> <span class="sp">Superpowers</span> fa brainstorming ma non produce artefatti formali tracciabili. <span class="os">OpenSpec</span> genera tutto con un comando ma non ti forza a chiarire — requisiti vaghi → spec vaghe. <span class="bm">B-MAD</span> funziona (l'Analyst elicita bene) ma la curva di apprendimento è ripida: imparare 19 agenti mentre parti un progetto nuovo rallenta.</p>
 </div></section>
 
 <section><div class="uc os-c" style="max-width:800px;margin:0 auto">
-<h4>Feature su codebase esistente</h4>
+<h4>Feature su codebase esistente (brownfield quotidiano)</h4>
 <p class="rec">→ <span class="os">OpenSpec</span></p>
-<p><strong>Situazione:</strong> Aggiungere dark mode, endpoint, integrazione. Conosci il codice.</p>
-<p><strong>Perché:</strong> <code>/opsx:propose "add-dark-mode"</code> → 30 sec, 4 artefatti. Scopri vincoli? Aggiorni il design senza ricominciare.</p>
-<p style="color:#6a6a8c"><strong>Non gli altri:</strong> <span class="sk">Spec Kit</span> 7 step per dark mode = overkill. <span class="sp">Superpowers</span> no artefatti per colleghi. <span class="bm">B-MAD</span> overhead per task noti.</p>
+<p><strong>Situazione:</strong> Hai una codebase che funziona. Devi aggiungere dark mode, un nuovo endpoint API, o integrare un servizio esterno. Conosci già il codice.</p>
+<p><strong>Perché OpenSpec:</strong> Fai <code>/opsx:propose "add-dark-mode"</code> e in 30 secondi hai proposal, spec, design e task nella cartella <code>openspec/changes/add-dark-mode/</code>. Mentre implementi scopri che il CSS è più incasinato del previsto? Aggiorni il design.md senza ricominciare. Nessun phase gate ti blocca. Finito? <code>/opsx:archive</code> e la change è archiviata pulita.</p>
+<p style="color:#6a6a8c"><strong>Non gli altri:</strong> <span class="sk">Spec Kit</span> — per aggiungere dark mode devi fare constitution → specify → clarify → plan → analyze → tasks → implement. 7 step per una feature che sai già come fare. Overkill. <span class="sp">Superpowers</span> — non produce artefatti di specifica leggibili da un collega. <span class="bm">B-MAD</span> — devi caricare un agente, scegliere il track. Overhead per un task noto.</p>
 </div></section>
 
 <section><div class="uc sp-c" style="max-width:800px;margin:0 auto">
-<h4>Focus time — Claude Code lavora da solo</h4>
+<h4>3 ore di focus time — Claude Code lavora da solo</h4>
 <p class="rec">→ <span class="sp">Superpowers</span></p>
-<p><strong>Situazione:</strong> Hai chiaro cosa costruire. Vuoi che l'agente lavori in autonomia per ore.</p>
-<p><strong>Perché:</strong> Subagent per task, review 2 stadi, TDD imposto. Puoi andare a fare altro.</p>
-<p style="color:#fb923c">⚠ Solo Claude Code — su altri agent non garantito.</p>
-<p style="color:#6a6a8c"><strong>Non gli altri:</strong> <span class="sk">Spec Kit</span> e <span class="os">OpenSpec</span> no subagent/review. <span class="bm">B-MAD</span> checkpoint umano tra fasi.</p>
+<p><strong>Situazione:</strong> Hai già chiaro cosa costruire (magari una spec scritta a mano). Vuoi che l'agente lavori in autonomia: scriva test, implementi, faccia review, e vada avanti senza chiederti conferma ogni 2 minuti.</p>
+<p><strong>Perché Superpowers:</strong> L'agente spawna un subagent per ogni task, fa review a 2 stadi (aderenza alla spec + qualità codice), e se qualcosa non va lo blocca da solo. Le istruzioni TDD impongono che ogni pezzo di codice abbia il suo test scritto prima. Puoi letteralmente andare a fare altro.</p>
+<p style="color:#fb923c">⚠ Funziona al meglio SOLO su Claude Code (plugin nativo). Su opencode/Copilot le skill sono prompt nel contesto senza garanzia di attivazione.</p>
+<p style="color:#6a6a8c"><strong>Non gli altri:</strong> <span class="sk">Spec Kit</span> <code>/speckit.implement</code> esegue task ma senza subagent né review automatica tra task. <span class="os">OpenSpec</span> <code>/opsx:apply</code> idem. <span class="bm">B-MAD</span> ha multi-agent con handoff, ma richiede checkpoint umano tra le fasi — non è pensato per "lascio lavorare l'agente 3 ore".</p>
 </div></section>
 
 <section><div class="uc bm-c" style="max-width:800px;margin:0 auto">
-<h4>Progetto complesso, molti stakeholder</h4>
+<h4>Progetto complesso con molti stakeholder</h4>
 <p class="rec">→ <span class="bm">B-MAD</span> (BMad / Enterprise track)</p>
-<p><strong>Situazione:</strong> FE+BE+API+DB, requisiti security, più persone devono capire le decisioni architetturali.</p>
-<p><strong>Perché:</strong> Analyst elicita → PM genera PRD → Architect progetta → Dev implementa → QA adversarial review. Ogni ruolo = un agente. Scale-adaptive.</p>
-<p style="color:#6a6a8c"><strong>Non gli altri:</strong> <span class="sk">Spec Kit</span> un agente fa tutto. <span class="sp">Superpowers</span> no PRD/arch doc. <span class="os">OpenSpec</span> troppo leggero.</p>
-</div></section>
-
-<section><div class="card-grid c2" style="max-width:800px;margin:0 auto">
-<div class="uc bm-c"><h4>Bug fix / task piccolo</h4>
-<p class="rec">→ <span class="bm">B-MAD Quick</span> o nessuno</p>
-<p>Unico con track per task piccoli: solo tech-spec. Per un typo → nessun framework.</p>
-<p style="color:#6a6a8c"><span class="sk">Spec Kit</span> 7 step? No. <span class="os">OpenSpec</span> 4 file per 5 righe? No.</p>
-</div>
-<div class="uc sp-c"><h4>Bug complesso, root cause ignota</h4>
-<p class="rec">→ <span class="sp">Superpowers</span></p>
-<p>Unico con debugging strutturato: raccolta evidenze → ipotesi → verifica sistematica → fix defense-in-depth.</p>
-<p style="color:#6a6a8c">Gli altri non coprono debugging come workflow.</p>
-</div>
-</div></section>
-
-<section><div class="card-grid c2" style="max-width:800px;margin:0 auto">
-<div class="uc sk-c"><h4>Compliance / audit</h4>
-<p class="rec">→ <span class="sk">Spec Kit</span> + presets</p>
-<p>Constitution → Spec → Plan → Tasks in Git. Presets per gate regolatori. <span class="bm">B-MAD Enterprise</span> alternativa.</p>
-</div>
-<div class="uc os-c"><h4>Side project</h4>
-<p class="rec">→ <span class="os">OpenSpec</span></p>
-<p>npm + init + 3 comandi. Quando cresce, hai già artefatti.</p>
-</div>
+<p><strong>Situazione:</strong> Stai costruendo una piattaforma con frontend, backend, API, database. Ci sono requisiti di sicurezza, performance, UX. Più persone devono capire le decisioni architetturali. Servono PRD, user stories, architecture doc.</p>
+<p><strong>Perché B-MAD:</strong> Ogni ruolo del team reale ha un agente corrispondente. L'Analyst elicita i requisiti con tecniche avanzate. Il PM genera il PRD con user stories. L'Architect progetta l'architettura. Il Dev implementa story per story. Il QA valida con adversarial review. Il scale-adaptive ti dà Quick / BMad / Enterprise in base alla complessità reale.</p>
+<p style="color:#6a6a8c"><strong>Non gli altri:</strong> <span class="sk">Spec Kit</span> — un singolo agente fa tutto, nessuna separazione dei ruoli. L'Architect e il PM sono lo stesso agente → compromessi non espliciti. <span class="sp">Superpowers</span> — eccelle nell'esecuzione ma non produce PRD o architecture doc formali. <span class="os">OpenSpec</span> — troppo leggero, un <code>/opsx:propose</code> non produce un architecture doc che un tech lead può revieware.</p>
 </div></section>
 
 <section><div class="uc bm-c" style="max-width:800px;margin:0 auto">
-<h4>Non-software (game dev, creative, strategy)</h4>
+<h4>Bug fix o task piccolo e chiaro</h4>
+<p class="rec">→ <span class="bm">B-MAD (Quick track)</span> oppure nessun framework</p>
+<p><strong>Situazione:</strong> "Il bottone di logout non funziona su mobile" o "aggiungi un campo email alla form di contatto". Sai già cosa fare, serve solo un minimo di struttura per non dimenticare l'edge case.</p>
+<p><strong>Perché B-MAD Quick:</strong> È l'unico che ha un track esplicito per task piccoli. Genera un tech-spec minimale (niente PRD, niente architettura) e passa al codice. La "cerimonia giusta" per il task giusto.</p>
+<p><strong>Quando nessun framework:</strong> Per un bug fix di 5 minuti (typo, config), qualsiasi framework è overhead. Fixa, testa, committa.</p>
+<p style="color:#6a6a8c"><strong>Non gli altri:</strong> <span class="sk">Spec Kit</span> — 7 step per un bug fix? No. <span class="sp">Superpowers</span> — potrebbe partire con brainstorming socratico su un typo. Inutile. <span class="os">OpenSpec</span> — genera comunque 4 file (proposal, spec, design, task) per un fix di 5 righe.</p>
+</div></section>
+
+<section><div class="uc sp-c" style="max-width:800px;margin:0 auto">
+<h4>Bug complesso in produzione, root cause ignota</h4>
+<p class="rec">→ <span class="sp">Superpowers</span></p>
+<p><strong>Situazione:</strong> Un endpoint ritorna 500 in modo intermittente. Hai guardato i log, hai provato a riprodurre, ma non riesci a isolare la causa.</p>
+<p><strong>Perché Superpowers:</strong> È l'unico con una skill di debugging strutturato a 4 fasi: (1) raccolta evidenze, (2) formulazione ipotesi, (3) verifica sistematica, (4) fix con defense-in-depth. Include root cause tracing e condition-based waiting (aspetta la condizione invece di sleep random).</p>
+<p style="color:#6a6a8c"><strong>Non gli altri:</strong> Spec Kit, OpenSpec e B-MAD non coprono il debugging come workflow. Al massimo dici all'agente "fixa questo bug" e speri che funzioni. Superpowers ha un processo.</p>
+</div></section>
+
+<section><div class="uc sk-c" style="max-width:800px;margin:0 auto">
+<h4>Compliance, audit, tracciabilità delle decisioni</h4>
+<p class="rec">→ <span class="sk">Spec Kit</span> con presets compliance</p>
+<p><strong>Situazione:</strong> Audit, certificazioni, regolatorio. Qualcuno ti chiede "perché avete scelto questa architettura?" e devi poter rispondere con un documento.</p>
+<p><strong>Perché Spec Kit:</strong> Constitution (principi fondamentali) → Spec (requisiti) → Plan (decisioni tecniche) → Tasks (cosa implementato) — tutto versionato in Git. I presets aggiungono gate regolatori (V-Model, traceability). <code>/speckit.checklist</code> valida i requisiti come "unit test per l'inglese".</p>
+<p style="color:#6a6a8c"><span class="bm">B-MAD Enterprise</span> alternativa valida (adversarial review + Security/DevOps strategy), ma Spec Kit ha un ecosistema di presets compliance più maturo e GitHub come organizzazione dietro.</p>
+</div></section>
+
+<section><div class="card-grid c2" style="max-width:800px;margin:0 auto">
+<div class="uc os-c"><h4>Side project personale, struttura minima</h4>
+<p class="rec">→ <span class="os">OpenSpec</span></p>
+<p><strong>Situazione:</strong> Side project, nessun team, nessun compliance. Vuoi evitare il caos del "vibe coding" ma non passare un'ora a configurare.</p>
+<p><code>npm install -g @fission-ai/openspec && openspec init</code> → 3 comandi da sapere (propose, apply, archive). Quando il side project cresce, hai già gli artefatti organizzati per feature.</p>
+<p style="color:#6a6a8c"><span class="sk">Spec Kit</span> Python/uv + constitution + 7 step per un sabato pomeriggio è troppo. <span class="bm">B-MAD</span> 19 agenti per un to-do app? No.</p>
+</div>
+<div class="uc bm-c"><h4>Non-software (game dev, creative, strategy)</h4>
 <p class="rec">→ <span class="bm">B-MAD</span> (unica opzione)</p>
-<p>Game Dev Studio (4 agenti, 20+ workflow), Creative Intelligence Suite, business strategy. Gli altri tre sono solo software development.</p>
+<p>Game Dev Studio (4 agenti dedicati, 20+ workflow per game development). Creative Intelligence Suite per brainstorming creativo. BMad Builder per creare i tuoi moduli custom.</p>
+<p>Gli altri tre (Spec Kit, Superpowers, OpenSpec) sono esclusivamente software development.</p>
+</div>
 </div></section>
 </section>
 
